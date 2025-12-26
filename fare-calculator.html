@@ -325,14 +325,18 @@
         }
 
         function getCurrentLocation() {
+    const button = document.getElementById('getLocationBtn');
+    const locationDisplay = document.getElementById('pickupLocation');
+    
     if (!navigator.geolocation) {
-        document.getElementById('pickupLocation').textContent = "無法獲取位置";
+        showStatus("您的裝置不支援位置服務", "error");
         return;
     }
 
-    // ✅ 立即顯示預設值，提升使用者體驗
-    document.getElementById('pickupLocation').textContent = "當前位置";
-    
+    // 顯示載入狀態
+    button.innerHTML = '<span class="loading"></span>獲取位置中...';
+    button.disabled = true;
+
     navigator.geolocation.getCurrentPosition(
         async (position) => {
             pickupCoords = {
@@ -341,7 +345,7 @@
             };
             
             try {
-                // 背景獲取詳細地址
+                // 獲取詳細地址
                 const response = await fetch(
                     `https://maps.googleapis.com/maps/api/geocode/json?latlng=${pickupCoords.lat},${pickupCoords.lng}&language=zh-TW&key=${googleApiKey}`
                 );
@@ -349,22 +353,39 @@
                 
                 if (data.status === "OK" && data.results && data.results.length > 0) {
                     const address = data.results[0].formatted_address;
-                    // ✅ 平滑更新顯示
-                    document.getElementById('pickupLocation').textContent = address;
+                    
+                    // ✅ 成功！顯示地址並隱藏按鈕
+                    locationDisplay.textContent = address;
+                    locationDisplay.classList.remove('hidden');
+                    button.style.display = 'none';
+                    
+                    showStatus("位置獲取成功！", "success");
+                } else {
+                    // 顯示座標作為備用
+                    locationDisplay.textContent = `當前位置 (${pickupCoords.lat.toFixed(4)}, ${pickupCoords.lng.toFixed(4)})`;
+                    locationDisplay.classList.remove('hidden');
+                    button.style.display = 'none';
                 }
-                // 如果失敗，保持顯示「當前位置」
+                
             } catch (error) {
                 console.error("獲取地址錯誤:", error);
-                // 保持顯示「當前位置」
+                // 顯示座標作為備用
+                locationDisplay.textContent = `當前位置 (${pickupCoords.lat.toFixed(4)}, ${pickupCoords.lng.toFixed(4)})`;
+                locationDisplay.classList.remove('hidden');
+                button.style.display = 'none';
             }
         },
         (error) => {
             console.error("定位錯誤:", error);
-            document.getElementById('pickupLocation').textContent = "無法獲取位置";
+            showStatus("無法獲取位置，請確保已開啟定位權限", "error");
+            
+            // 恢復按鈕狀態
+            button.innerHTML = '<span class="location-icon">📍</span>使用當前位置';
+            button.disabled = false;
         },
         {
             enableHighAccuracy: true,
-            timeout: 10000,
+            timeout: 15000,
             maximumAge: 0
         }
     );

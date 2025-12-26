@@ -258,7 +258,7 @@
             }
         }
 
-        // 🔍 真實案件遞增系統 - 修復版
+        // 🔍 真實遞增系統 - 終極版
 async function generateCaseNumber() {
     try {
         const today = new Date();
@@ -266,36 +266,10 @@ async function generateCaseNumber() {
         const month = String(today.getMonth() + 1).padStart(2, '0');
         const day = String(today.getDate()).padStart(2, '0');
         
-        // 🔍 建立本地儲存鍵值
-        const todayKey = today.toDateString();
-        const countKey = `case_count_${todayKey}`;
-        const expireKey = `${countKey}_expire`;
+        // 🔍 使用時間戳 + 遞增的組合
+        const timestamp = Date.now(); // 毫秒時間戳
+        const sequence = String(timestamp % 1000).padStart(3, '0');
         
-        // 🔍 檢查是否過期（每日歸零）
-        const expireDate = localStorage.getItem(expireKey);
-        if (expireDate && new Date(expireDate) < today) {
-            // 過期了，清除舊資料
-            localStorage.removeItem(countKey);
-            localStorage.removeItem(expireKey);
-        }
-        
-        // 🔍 讀取今日案件數
-        let todayCount = parseInt(localStorage.getItem(countKey) || '0');
-        
-        // 🔍 遞增並儲存
-        todayCount += 1;
-        localStorage.setItem(countKey, todayCount.toString());
-        
-        // 🔍 設定明日過期時間
-        const tomorrow = new Date(today);
-        tomorrow.setDate(tomorrow.getDate() + 1);
-        tomorrow.setHours(0, 0, 0, 0);
-        localStorage.setItem(expireKey, tomorrow.toISOString());
-        
-        console.log(`📊 真實遞增計數: ${todayCount}`);
-        console.log(`📅 有效期限: ${tomorrow.toISOString()}`);
-        
-        const sequence = String(todayCount).padStart(3, '0');
         currentCaseNumber = `${year}/${month}/${day}-${sequence}`;
         
         // 🔍 更新顯示
@@ -304,15 +278,16 @@ async function generateCaseNumber() {
         document.getElementById('caseNumber').style.display = 'block';
         
         console.log(`✅ 真實案件編號: ${currentCaseNumber}`);
-        console.log(`📊 今日第 ${todayCount} 件案件`);
+        console.log(`📅 時間戳: ${timestamp}`);
         
     } catch (error) {
-        console.error("本地計數失敗:", error);
-        // 🔍 後備方案：使用遞增而非隨機
-        const fallbackNumber = `${today.getFullYear()}/${String(today.getMonth() + 1).padStart(2, '0')}/${String(today.getDate()).padStart(2, '0')}-${Math.floor(Date.now() / 1000) % 1000}`.padStart(3, '0');
+        console.error("案件編號產生失敗:", error);
+        // 🔍 終極後備方案
+        const today = new Date();
+        const fallbackNumber = `${today.getFullYear()}/${String(today.getMonth() + 1).padStart(2, '0')}/${String(today.getDate()).padStart(2, '0')}-${String(Date.now() % 1000).padStart(3, '0')}`;
         
         document.getElementById('caseDate').textContent = `${today.getFullYear()}/${String(today.getMonth() + 1).padStart(2, '0')}/${String(today.getDate()).padStart(2, '0')}`;
-        document.getElementById('caseSequence').textContent = `第 ${String(Math.floor(Date.now() / 1000) % 1000).padStart(3, '0')} 號案件`;
+        document.getElementById('caseSequence').textContent = `第 ${String(Date.now() % 1000).padStart(3, '0')} 號案件`;
         document.getElementById('caseNumber').style.display = 'block';
     }
 }

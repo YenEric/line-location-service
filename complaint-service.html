@@ -2,8 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>客訴服務系統</title>
-    <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+    <title>客訴服務 - 專業黑色系（放大30%）</title>
     <style>
         * {
             margin: 0;
@@ -21,57 +20,70 @@
             align-items: center;
             min-height: 100vh;
             transform: scale(1.3); /* 🔍 整體放大30% */
-            transform-origin: center center;
+            transform-origin: center;
         }
         
         .container {
             width: 90%;
-            max-width: 650px; /* 🔍 放大容器（原500px*1.3=650px） */
+            max-width: 650px; /* 🔍 放大到650px (原500px*1.3) */
             background: linear-gradient(135deg, #111111 0%, #0a0a0a 100%);
-            border-radius: 26px; /* 🔍 放大圓角（原20px*1.3） */
-            padding: 52px 39px; /* 🔍 放大內距（原40px*30px*1.3） */
-            box-shadow: 0 33px 65px rgba(0, 0, 0, 0.4);
+            border-radius: 26px; /* 🔍 放大圓角 */
+            padding: 52px 39px; /* 🔍 內距放大30% */
+            box-shadow: 0 32px 65px rgba(0, 0, 0, 0.4);
             text-align: center;
-            transform: scale(1); /* 確保內部元素正常 */
         }
         
         .header {
             text-align: center;
-            margin-bottom: 52px; /* 🔍 放大間距 */
+            margin-bottom: 52px; /* 🔍 間距放大30% */
         }
         
         .header h1 {
-            font-size: 47px; /* 🔍 放大標題（原36px*1.3） */
+            font-size: 47px; /* 🔍 標題放大30% */
             font-weight: 700;
-            margin-bottom: 20px; /* 🔍 放大間距 */
+            margin-bottom: 20px; /* 🔍 間距放大30% */
             background: linear-gradient(135deg, #ffffff 0%, #cccccc 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
         
-        .user-welcome {
-            font-size: 20px; /* 🔍 放大歡迎文字 */
-            opacity: 0.9;
+        .user-info {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px; /* 🔍 加大圓角 */
+            padding: 26px; /* 🔍 內距放大30% */
+            margin: 39px 0; /* 🔍 間距放大30% */
+            text-align: center;
+        }
+        
+        .user-name {
+            font-size: 24px; /* 🔍 放大使用者名稱 */
+            font-weight: 600;
             margin-bottom: 10px;
+        }
+        
+        .case-number {
+            font-size: 18px; /* 🔍 放大編號 */
+            font-family: monospace;
+            color: #00d4ff;
         }
         
         .complaint-types {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 20px; /* 🔍 放大間距 */
-            margin: 40px 0; /* 🔍 放大間距 */
+            gap: 20px; /* 🔍 間距放大30% */
+            margin: 39px 0; /* 🔍 間距放大30% */
         }
         
         .type-btn {
             background: linear-gradient(135deg, #1a1a1a 0%, #151515 100%);
             border: 2px solid rgba(255, 255, 255, 0.1);
             color: #ffffff;
-            padding: 26px 20px; /* 🔍 放大內距 */
-            border-radius: 20px; /* 🔍 放大圓角 */
+            padding: 26px 20px; /* 🔍 內距放大30% */
+            border-radius: 20px; /* 🔍 加大圓角 */
             cursor: pointer;
             transition: all 0.3s ease;
             text-align: center;
-            font-size: 21px; /* 🔍 放大文字 */
+            font-size: 21px; /* 🔍 文字放大30% */
             font-weight: 500;
         }
         
@@ -79,11 +91,11 @@
         .type-btn.active {
             border-color: #00d4ff;
             background: linear-gradient(135deg, #1a3a3a 0%, #152525 100%);
-            transform: translateY(-4px); /* 🔍 更大浮動 */
+            transform: translateY(-3px);
         }
         
         .file-upload {
-            margin: 40px 0; /* 🔍 放大間距 */
+            margin: 39px 0; /* 🔍 間距放大30% */
         }
         
         .upload-btn {
@@ -91,8 +103,8 @@
             background: linear-gradient(135deg, #333333 0%, #222222 100%);
             border: 2px dashed rgba(255, 255, 255, 0.3);
             color: #ffffff;
-            padding: 39px 26px; /* 🔍 放大內距 */
-            border-radius: 20px; /* 🔍 放大圓角 */
+            padding: 39px 26px; /* 🔍 內距放大30% */
+            border-radius: 20px; /* 🔍 加大圓角 */
             cursor: pointer;
             transition: all 0.3s ease;
             text-align: center;
@@ -105,58 +117,64 @@
         
         textarea {
             width: 100%;
-            height: 195px; /* 🔍 放大高度（原150px*1.3） */
+            height: 195px; /* 🔍 高度放大30% */
             background: rgba(255,255,255,0.05);
             border: 1px solid rgba(255,255,255,0.2);
-            border-radius: 20px; /* 🔍 放大圓角 */
+            border-radius: 20px; /* 🔍 加大圓角 */
             color: #ffffff;
-            padding: 26px; /* 🔍 放大內距 */
-            font-size: 21px; /* 🔍 放大文字 */
+            padding: 26px; /* 🔍 內距放大30% */
+            font-size: 21px; /* 🔍 文字放大30% */
             resize: vertical;
-            margin: 40px 0; /* 🔍 放大間距 */
+            margin: 39px 0; /* 🔍 間距放大30% */
         }
         
-        /* 案件編號 - 智慧遞增系統 */
+        /* 案件編號 - 放大版 */
         .case-number {
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 16px; /* 🔍 放大圓角 */
-            padding: 26px; /* 🔍 放大內距 */
-            margin: 40px 0; /* 🔍 放大間距 */
+            border-radius: 20px; /* 🔍 加大圓角 */
+            padding: 26px; /* 🔍 內距放大30% */
+            margin: 39px 0; /* 🔍 間距放大30% */
             text-align: center;
         }
         
-        .user-name {
-            font-size: 18px; /* 🔍 放大使用者名稱 */
-            margin-bottom: 10px;
-            color: #00d4ff;
+        .case-number-title {
+            font-size: 18px; /* 🔍 放大標題 */
+            margin-bottom: 13px; /* 🔍 間距放大30% */
         }
         
         .case-number-text {
-            font-size: 31px; /* 🔍 放大編號文字 */
+            font-size: 26px; /* 🔍 放大編號文字 */
             font-weight: bold;
             color: #00d4ff;
+            font-family: monospace;
         }
         
-        /* 淺灰色按鈕 - 保持你的要求 */
+        .case-number-note {
+            font-size: 15px; /* 🔍 放大備註 */
+            opacity: 0.7;
+            margin-top: 13px; /* 🔍 間距放大30% */
+        }
+        
+        /* 淺灰色按鈕 - 放大版 */
         .submit-btn {
             width: 100%;
-            background: #e0e0e0; /* 🔍 保持淺灰色 */
-            color: #000000; /* 🔍 保持黑色文字 */
+            background: #e0e0e0; /* 淺灰色背景 */
+            color: #000000; /* 黑色文字 */
             border: none;
-            padding: 26px; /* 🔍 放大內距 */
-            font-size: 26px; /* 🔍 放大文字（原20px*1.3） */
+            padding: 26px; /* 🔍 內距放大30% */
+            font-size: 26px; /* 🔍 文字放大30% */
             font-weight: 600;
-            border-radius: 20px; /* 🔍 放大圓角 */
+            border-radius: 20px; /* 🔍 加大圓角 */
             cursor: pointer;
             transition: all 0.3s ease;
-            margin-top: 40px; /* 🔍 放大間距 */
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+            margin-top: 39px; /* 🔍 間距放大30% */
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
         }
         
         .submit-btn:hover {
-            background: #d0d0d0; /* 🔍 稍深灰色 */
-            transform: translateY(-4px); /* 🔍 更大浮動 */
+            background: #d0d0d0; /* 稍深灰色 */
+            transform: translateY(-3px); /* 🔍 更大浮動 */
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
         }
     </style>
@@ -165,9 +183,16 @@
     <div class="container">
         <div class="header">
             <h1>🎧 客訴服務</h1>
-            <div class="user-welcome" id="userWelcome">
-                <!-- 🔍 使用者名稱將在這裡顯示 -->
-                我們重視您的每一個意見
+            <p>我們重視您的每一個意見</p>
+            
+            <!-- 🔍 使用者名稱顯示區域 -->
+            <div class="user-info">
+                <div class="user-name" id="userName">載入中...</div>
+                <div class="case-number">
+                    <div class="case-number-title">您的案件編號</div>
+                    <div class="case-number-text" id="caseNumberText">載入中...</div>
+                    <div class="case-number-note">我們將盡快處理您的問題</div>
+                </div>
             </div>
         </div>
         
@@ -182,9 +207,9 @@
         
         <div class="file-upload">
             <div class="upload-btn" onclick="uploadFile()">
-                <div style="font-size: 68px; margin-bottom: 15px;">📎</div>
+                <div style="font-size: 68px; margin-bottom: 20px;">📎</div>
                 <div style="font-size: 24px;">點擊上傳照片/影片證據</div>
-                <div style="font-size: 18px; opacity: 0.7; margin-top: 8px;">支援 JPG, PNG, MP4 格式</div>
+                <div style="font-size: 18px; opacity: 0.7; margin-top: 10px;">支援 JPG, PNG, MP4 格式</div>
             </div>
             <input type="file" id="fileInput" style="display: none;" accept="image/*,video/*" multiple>
         </div>
@@ -193,16 +218,8 @@
                   style="width: 100%; height: 195px; background: rgba(255,255,255,0.05); 
                          border: 1px solid rgba(255,255,255,0.2); border-radius: 20px; 
                          color: #ffffff; padding: 26px; font-size: 21px; 
-                         resize: vertical; margin: 40px 0;"></textarea>
+                         resize: vertical; margin: 39px 0;"></textarea>
         
-        <!-- 🔍 智慧案件編號系統 -->
-        <div class="case-number" id="caseNumber" style="display: none;">
-            <div class="user-name" id="userNameDisplay"></div>
-            <div class="case-number-text" id="caseNumberText"></div>
-            <div style="font-size: 18px; opacity: 0.7; margin-top: 8px;">我們將盡快處理您的問題</div>
-        </div>
-        
-        <!-- 🔍 淺灰色按鈕 - 保持你的要求 -->
         <button class="submit-btn" onclick="submitComplaint()">
             提交客訴案件
         </button>
@@ -214,85 +231,70 @@
         let selectedType = '';
         let uploadedFiles = [];
         let userName = '';
-        let todayCaseCount = 1; // 🔍 今日案件計數器
+        let caseNumber = '';
 
         async function initializeLiff() {
             try {
                 await liff.init({ liffId: liffId });
-                console.log("LIFF initialized successfully");
+                console.log("✅ LIFF 初始化成功");
                 
-                // 🔍 獲取使用者資訊和案件編號
-                await getUserInfoAndCaseNumber();
+                // 🔍 獲取使用者名稱
+                if (liff.isInClient()) {
+                    const profile = await liff.getProfile();
+                    userName = profile.displayName;
+                    document.getElementById('userName').textContent = `您好，${userName}`;
+                    console.log(`✅ 使用者名稱: ${userName}`);
+                } else {
+                    userName = '訪客';
+                    document.getElementById('userName').textContent = '您好，訪客';
+                    console.log('⚠️ 不在 LINE 客戶端中');
+                }
+                
+                // 🔍 產生智能案件編號
+                generateSmartCaseNumber();
                 
             } catch (error) {
-                console.error("LIFF initialization failed", error);
-                showMessage("系統初始化失敗", "error");
+                console.error("❌ LIFF 初始化失敗:", error);
+                document.getElementById('userName').textContent = '系統初始化失敗';
+                generateBasicCaseNumber();
             }
         }
 
-        // 🔍 智慧案件編號系統
-        async function getUserInfoAndCaseNumber() {
+        // 🔍 智能案件編號產生器
+        async function generateSmartCaseNumber() {
             try {
-                if (liff.isInClient()) {
-                    // 獲取使用者資訊
-                    const profile = await liff.getProfile();
-                    userName = profile.displayName;
-                    
-                    // 🔍 顯示使用者名稱
-                    document.getElementById('userWelcome').textContent = `${userName}，我們重視您的每一個意見`;
-                    document.getElementById('userNameDisplay').textContent = `用戶：${userName}`;
-                    
-                    // 🔍 產生智慧案件編號 (日期+遞增號碼)
-                    const today = new Date();
-                    const year = today.getFullYear();
-                    const month = String(today.getMonth() + 1).padStart(2, '0');
-                    const day = String(today.getDate()).padStart(2, '0');
-                    
-                    // 🔍 智慧遞增系統 (模擬真實遞增)
-                    const storedCount = localStorage.getItem(`caseCount_${year}${month}${day}`) || '0';
-                    todayCaseCount = parseInt(storedCount) + 1;
-                    localStorage.setItem(`caseCount_${year}${month}${day}`, todayCaseCount.toString());
-                    
-                    const caseNumber = `${year}${month}${day}-${String(todayCaseCount).padStart(3, '0')}`;
-                    
-                    // 🔍 顯示案件編號
-                    document.getElementById('caseNumberText').textContent = caseNumber;
-                    document.getElementById('caseNumber').style.display = 'block';
-                    
-                    console.log(`✅ 用戶：${userName}, 案件編號：${caseNumber}`);
-                    
-                } else {
-                    // 🔍 非LINE環境的預設值
-                    userName = '使用者';
-                    document.getElementById('userWelcome').textContent = '我們重視您的每一個意見';
-                    document.getElementById('userNameDisplay').textContent = '用戶：使用者';
-                    
-                    // 🔍 產生預設案件編號
-                    const today = new Date();
-                    const year = today.getFullYear();
-                    const month = String(today.getMonth() + 1).padStart(2, '0');
-                    const day = String(today.getDate()).padStart(2, '0');
-                    const caseNumber = `${year}${month}${day}-001`;
-                    
-                    document.getElementById('caseNumberText').textContent = caseNumber;
-                    document.getElementById('caseNumber').style.display = 'block';
-                }
-                
-            } catch (error) {
-                console.error("獲取使用者資訊失敗:", error);
-                // 🔍 錯誤處理 - 顯示預設值
-                userName = '使用者';
-                document.getElementById('userWelcome').textContent = '我們重視您的每一個意見';
-                
                 const today = new Date();
                 const year = today.getFullYear();
                 const month = String(today.getMonth() + 1).padStart(2, '0');
                 const day = String(today.getDate()).padStart(2, '0');
-                const caseNumber = `${year}${month}${day}-001`;
+                
+                // 🔍 模擬獲取今日案件總數（實際使用時需連接後端API）
+                // 這裡先用隨機數模擬，實際使用時要換成API調用
+                const todayCases = Math.floor(Math.random() * 50) + 1; // 模擬1-50件
+                
+                const serialNumber = todayCases.toString().padStart(3, '0');
+                caseNumber = `${year}/${month}/${日}-${serialNumber}`;
                 
                 document.getElementById('caseNumberText').textContent = caseNumber;
-                document.getElementById('caseNumber').style.display = 'block';
+                console.log(`✅ 案件編號產生: ${caseNumber}`);
+                
+            } catch (error) {
+                console.error("❌ 案件編號產生失敗:", error);
+                generateBasicCaseNumber();
             }
+        }
+
+        // 🔍 基本案件編號（備用方案）
+        function generateBasicCaseNumber() {
+            const today = new Date();
+            const year = today.getFullYear();
+            const month = String(today.getMonth() + 1).padStart(2, '0');
+            const day = String(today.getDate()).padStart(2, '0');
+            const basicNumber = "001"; // 基本編號
+            
+            caseNumber = `${year}/${month}/${day}-001`;
+            document.getElementById('caseNumberText').textContent = caseNumber;
+            console.log(`✅ 基本案件編號: ${caseNumber}`);
         }
 
         // 類型選擇
@@ -304,6 +306,7 @@
                 // 設置當前選中
                 this.classList.add('active');
                 selectedType = this.dataset.type;
+                console.log(`✅ 選擇類型: ${selectedType}`);
             });
         });
 
@@ -319,8 +322,9 @@
             if (files.length > 0) {
                 showMessage(`已選擇 ${files.length} 個檔案`, "success");
                 document.querySelector('.upload-btn').innerHTML = 
-                    `<div style="font-size: 68px; margin-bottom: 15px;">✅</div>
+                    `<div style="font-size: 68px; margin-bottom: 20px;">✅</div>
                      <div style="font-size: 24px;">已上傳 ${files.length} 個檔案</div>`;
+                console.log(`✅ 上傳檔案: ${files.length} 個`);
             }
         });
 
@@ -337,15 +341,17 @@
                 return;
             }
             
-            const caseNumber = document.getElementById('caseNumberText').textContent;
-            
             showMessage("正在處理客訴...", "loading");
+            console.log("🚀 開始提交客訴...");
             
             try {
-                // 🔍 智慧客訴訊息 - 包含使用者名稱和案件編號
+                // 🔍 準備客訴訊息（包含使用者名稱）
+                const message = `🎧 客訴案件已建立\n👤 用戶：${userName}\n📋 案件編號：${caseNumber}\n🎯 問題類型：${getTypeText(selectedType)}\n\n感謝您的回報，我們將盡快處理您的問題。`;
+                
+                console.log(`📤 發送訊息: ${message}`);
+                
+                // 發送回 LINE
                 if (liff.isInClient()) {
-                    const message = `🎧 客訴案件已建立\n👤 用戶：${userName}\n📋 案件編號：${caseNumber}\n📝 問題類型：${getTypeText(selectedType)}\n\n我們將盡快處理您的問題，感謝您的耐心等候。`;
-                    
                     await liff.sendMessages([
                         {
                             type: "text",
@@ -354,8 +360,10 @@
                     ]);
                     
                     showMessage("客訴案件已提交！", "success");
+                    console.log("✅ 訊息發送成功");
                     
                     setTimeout(() => {
+                        console.log("🔄 關閉 LIFF 視窗");
                         liff.closeWindow();
                     }, 2000);
                 } else {
@@ -363,7 +371,7 @@
                 }
                 
             } catch (error) {
-                console.error("提交錯誤:", error);
+                console.error("❌ 提交錯誤:", error);
                 showMessage("提交失敗，請重試", "error");
             }
         }

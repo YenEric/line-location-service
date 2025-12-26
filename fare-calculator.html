@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+    <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
@@ -545,7 +545,7 @@
                     // 發送叫車訊息
                     if (liff.isInClient()) {
                         const dropoffAddress = document.getElementById('dropoffLocation').value.trim();
-                        const message = `🚗 叫車資訊\n上車：${pickupAddress}\n下車：${dropoffAddress}\n估計車資：$${baseFare.base} (浮動 ±5%)\n距離：${calculatedDistance.toFixed(1)}km | 時間：${Math.round(calculatedDuration)}分鐘`;
+                        const message = `🚗 叫車資訊\n上車：${pickupAddress}\n下車：${dropoffAddress}`;
                         
                         await liff.sendMessages([
                             {

@@ -3,178 +3,249 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>位置服務</title>
+    <title>即時叫車 - 位置服務</title>
     <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
         body {
-            font-family: Arial, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
             margin: 0;
-            background-color: transparent;
+            background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
         }
+        
         .container {
             text-align: center;
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            background: #ffffff;
+            padding: 40px 30px;
+            border-radius: 16px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
             width: 90%;
-            max-width: 300px;
+            max-width: 320px;
+            position: relative;
+            overflow: hidden;
         }
+        
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #00d4ff 0%, #0099cc 100%);
+        }
+        
+        .logo-section {
+            margin-bottom: 30px;
+        }
+        
+        .logo {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #000000 0%, #333333 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+            font-size: 24px;
+            color: white;
+            font-weight: bold;
+        }
+        
+        h2 {
+            color: #000000;
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        
+        .subtitle {
+            color: #666666;
+            font-size: 14px;
+            margin-bottom: 30px;
+        }
+        
         button {
-            background-color: #00B900;
+            background: linear-gradient(135deg, #000000 0%, #333333 100%);
             color: white;
             border: none;
-            padding: 15px 30px;
+            padding: 18px 30px;
             font-size: 18px;
-            border-radius: 5px;
+            font-weight: 600;
+            border-radius: 12px;
             cursor: pointer;
             width: 100%;
-            transition: background-color 0.3s;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
         }
+        
         button:hover {
-            background-color: #009900;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
         }
+        
+        button:active {
+            transform: translateY(0);
+        }
+        
         button:disabled {
-            background-color: #ccc;
+            background: #cccccc;
             cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
         }
+        
         #status {
-            margin-top: 20px;
-            color: #666;
-            font-size: 14px;
-            min-height: 20px;
+            margin-top: 25px;
+            color: #333333;
+            font-size: 16px;
+            font-weight: 500;
+            min-height: 24px;
+            transition: all 0.3s ease;
         }
-        #debug {
-            margin-top: 15px;
-            color: #999;
-            font-size: 11px;
-            text-align: left;
-            background: #f5f5f5;
-            padding: 10px;
-            border-radius: 5px;
-            max-height: 150px;
-            overflow-y: auto;
-            font-family: monospace;
+        
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #000000;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-right: 10px;
+            vertical-align: middle;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .success {
+            color: #00aa00;
+            font-weight: 600;
+        }
+        
+        .error {
+            color: #d32f2f;
+            font-weight: 600;
+        }
+        
+        .location-icon {
+            font-size: 20px;
+            margin-right: 8px;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h2>使用當前位置</h2>
-        <button id="locationBtn" onclick="getLocation()">使用當前位置</button>
+        <div class="logo-section">
+            <div class="logo">🚗</div>
+            <h2>確認上車地點</h2>
+            <p class="subtitle">我們將使用您的當前位置作為上車地點</p>
+        </div>
+        
+        <button id="locationBtn" onclick="getLocation()">
+            <span class="location-icon">📍</span>
+            使用當前位置
+        </button>
+        
         <div id="status"></div>
-        <div id="debug"></div>
     </div>
 
     <script>
         let liffId = "2008784977-JQ8QvDIR";
         let googleApiKey = "AIzaSyCMAZg7iKcByv3cZRevkdrVOFEFrGr8y1c";
         
-        function logDebug(message) {
-            const debugDiv = document.getElementById('debug');
-            const timestamp = new Date().toLocaleTimeString();
-            const logMessage = `[${timestamp}] ${message}`;
-            debugDiv.innerHTML += logMessage + '<br>';
-            console.log(logMessage);
-            debugDiv.scrollTop = debugDiv.scrollHeight;
-        }
-        
         async function initializeLiff() {
             try {
-                logDebug("正在初始化 LIFF...");
                 await liff.init({ liffId: liffId });
-                logDebug("LIFF 初始化成功");
-                logDebug("LIFF 是否在客戶端中: " + liff.isInClient());
+                console.log("LIFF initialized successfully");
             } catch (error) {
-                logDebug("LIFF 初始化失敗: " + error.message);
-                document.getElementById('status').textContent = "初始化失敗";
+                console.error("LIFF initialization failed", error);
+                showStatus("初始化失敗", "error");
+            }
+        }
+
+        function showStatus(message, type = "") {
+            const status = document.getElementById('status');
+            status.textContent = message;
+            status.className = type; // 添加 success 或 error 樣式
+            
+            if (type === "loading") {
+                status.innerHTML = '<span class="loading"></span>' + message;
             }
         }
 
         async function getLocation() {
-            const status = document.getElementById('status');
             const button = document.getElementById('locationBtn');
             
-            logDebug("=== 開始獲取位置 ===");
-            
             if (!navigator.geolocation) {
-                status.textContent = "您的裝置不支援位置服務";
-                logDebug("❌ 裝置不支援地理定位");
+                showStatus("您的裝置不支援位置服務", "error");
                 return;
             }
 
-            status.textContent = "正在獲取位置...";
+            showStatus("正在獲取位置...", "loading");
             button.disabled = true;
 
             navigator.geolocation.getCurrentPosition(
                 async (position) => {
                     const { latitude, longitude } = position.coords;
-                    const accuracy = position.coords.accuracy;
-                    logDebug(`✅ 獲取到座標：${latitude.toFixed(6)}, ${longitude.toFixed(6)} (精度: ${accuracy}m)`);
                     
                     try {
                         // 使用 Google Maps Geocoding API
-                        const apiUrl = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&language=zh-TW&key=${googleApiKey}`;
-                        logDebug(`🌐 呼叫 API: ${apiUrl}`);
-                        
-                        const response = await fetch(apiUrl);
-                        logDebug(`📡 API 回應狀態：${response.status} ${response.statusText}`);
-                        
-                        if (!response.ok) {
-                            throw new Error(`HTTP 錯誤: ${response.status}`);
-                        }
+                        const response = await fetch(
+                            `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&language=zh-TW&key=${googleApiKey}`
+                        );
                         
                         const data = await response.json();
-                        logDebug(`📊 API 回應狀態：${data.status}`);
                         
                         if (data.status === "OK" && data.results && data.results.length > 0) {
                             const fullAddress = data.results[0].formatted_address;
-                            logDebug(`✅ 解析到地址：${fullAddress}`);
                             
-                            status.textContent = "地址獲取成功！";
+                            showStatus("地址獲取成功！", "success");
                             
                             // 將地址發送回LINE聊天室
                             if (liff.isInClient()) {
-                                logDebug("📤 正在發送訊息到 LINE...");
                                 await liff.sendMessages([
                                     {
                                         type: "text",
                                         text: fullAddress
                                     }
                                 ]);
-                                logDebug("✅ 訊息發送成功");
                                 
                                 // 成功後關閉LIFF
                                 setTimeout(() => {
-                                    logDebug("🔄 準備關閉 LIFF 視窗");
                                     liff.closeWindow();
                                 }, 800);
                             } else {
-                                status.textContent = "請在LINE中開啟此頁面";
-                                logDebug("⚠️ 不在 LINE 客戶端中");
+                                showStatus("請在LINE中開啟此頁面", "error");
                                 button.disabled = false;
                             }
                         } else {
-                            status.textContent = `❌ 無法解析地址 (${data.status})`;
-                            logDebug(`❌ API 錯誤狀態：${data.status}`);
-                            if (data.error_message) {
-                                logDebug(`❌ 錯誤訊息：${data.error_message}`);
-                            }
+                            showStatus("無法解析地址", "error");
                             button.disabled = false;
                         }
                         
                     } catch (error) {
-                        logDebug(`❌ API 錯誤：${error.message}`);
-                        status.textContent = "地址解析失敗，請重試";
+                        console.error("API error:", error);
+                        showStatus("地址解析失敗，請重試", "error");
                         button.disabled = false;
                     }
                 },
                 (error) => {
-                    logDebug(`❌ 定位錯誤：${error.code} - ${error.message}`);
                     let errorMsg = "";
                     switch(error.code) {
                         case error.PERMISSION_DENIED:
@@ -189,7 +260,7 @@
                         default:
                             errorMsg = "獲取位置失敗";
                     }
-                    status.textContent = errorMsg;
+                    showStatus(errorMsg, "error");
                     button.disabled = false;
                 },
                 {

@@ -220,12 +220,16 @@
         </div>
         
         <div class="content">
-            <div class="location-section">
-                <div class="location-label">上車地點（當前位置）</div>
-                <div id="pickupLocation" class="location-display">
-                    正在獲取位置...
-                </div>
-            </div>
+           <div class="location-section">
+    <div class="location-label">上車地點</div>
+    <button id="getLocationBtn" class="location-btn" onclick="getCurrentLocation()">
+        <span class="location-icon">📍</span>
+        使用當前位置
+    </button>
+    <div id="pickupLocation" class="location-display hidden">
+        尚未選擇上車地點
+    </div>
+</div>
             
             <div class="location-section">
                 <div class="location-label">下車地點</div>

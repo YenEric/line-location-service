@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>客訴服務 - 智能處理系統</title>
+    <style>
+        /* Uber 黑色系風格 */
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+            background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
+            min-height: 100vh;
+            color: #ffffff;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            background: linear-gradient(135deg, #111111 0%, #0a0a0a 100%);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .header h1 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #ffffff 0%, #cccccc 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .urgency-selector {
+            display: flex;
+            justify-content: space-between;
+            margin: 20px 0;
+        }
+        
+        .star-rating {
+            font-size: 32px;
+            cursor: pointer;
+            color: #333;
+            transition: color 0.3s ease;
+        }
+        
+        .star-rating:hover,
+        .star-rating.active {
+            color: #ffcc00;
+        }
+        
+        .complaint-types {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin: 20px 0;
+        }
+        
+        .type-btn {
+            background: linear-gradient(135deg, #1a1a1a 0%, #151515 100%);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+            padding: 15px 10px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        
+        .type-btn:hover,
+        .type-btn.active {
+            border-color: #00d4ff;
+            background: linear-gradient(135deg, #1a3a3a 0%, #152525 100%);
+            transform: translateY(-2px);
+        }
+        
+        .file-upload {
+            margin: 20px 0;
+        }
+        
+        .upload-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #333333 0%, #222222 100%);
+            border: 2px dashed rgba(255, 255, 255, 0.3);
+            color: #ffffff;
+            padding: 25px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+        
+        .upload-btn:hover {
+            border-color: #00d4ff;
+            background: linear-gradient(135deg, #2a4a4a 0%, #253535 100%);
+        }
+        
+        .submit-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #00d4ff 0%, #0099cc 100%);
+            color: white;
+            border: none;
+            padding: 18px;
+            font-size: 18px;
+            font-weight: 600;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 25px;
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 212, 255, 0.4);
+        }
+        
+        .case-number {
+            background: rgba(0, 212, 255, 0.1);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            border-radius: 8px;
+            padding: 15px;
+            margin: 20px 0;
+            text-align: center;
+            font-family: monospace;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎧 客訴服務</h1>
+            <p>我們重視您的每一個意見</p>
+        </div>
+        
+        <div class="urgency-section">
+            <h3>緊急程度</h3>
+            <div class="urgency-selector">
+                <span class="star-rating" data-rating="1">⭐</span>
+                <span class="star-rating" data-rating="2">⭐</span>
+                <span class="star-rating" data-rating="3">⭐</span>
+                <span class="star-rating" data-rating="4">⭐</span>
+                <span class="star-rating" data-rating="5">⭐</span>
+            </div>
+        </div>
+        
+        <div class="complaint-types">
+            <button class="type-btn" data-type="driver">司機問題</button>
+            <button class="type-btn" data-type="service">服務態度</button>
+            <button class="type-btn" data-type="fare">車資爭議</button>
+            <button class="type-btn" data-type="safety">行車安全</button>
+            <button class="type-btn" data-type="app">APP問題</button>
+            <button class="type-btn" data-type="other">其他問題</button>
+        </div>
+        
+        <div class="file-upload">
+            <div class="upload-btn" onclick="uploadFile()">
+                <div style="font-size: 48px; margin-bottom: 10px;">📎</div>
+                <div style="font-size: 16px;">點擊上傳照片/影片證據</div>
+                <div style="font-size: 12px; opacity: 0.7; margin-top: 5px;">支援 JPG, PNG, MP4 格式</div>
+            </div>
+            <input type="file" id="fileInput" style="display: none;" accept="image/*,video/*" multiple>
+        </div>
+        
+        <textarea id="description" placeholder="請詳細描述您的問題..." 
+                  style="width: 100%; height: 120px; background: rgba(255,255,255,0.05); 
+                         border: 1px solid rgba(255,255,255,0.2); border-radius: 12px; 
+                         color: #ffffff; padding: 15px; font-size: 16px; 
+                         resize: vertical; margin: 20px 0;"></textarea>
+        
+        <div class="case-number" id="caseNumber" style="display: none;">
+            <div style="font-size: 14px; margin-bottom: 5px;">您的案件編號</div>
+            <div style="font-size: 20px; font-weight: bold;">FT-20241227-001</div>
+            <div style="font-size: 12px; opacity: 0.7; margin-top: 5px;">預計處理時間：24小時內</div>
+        </div>
+        
+        <button class="submit-btn" onclick="submitComplaint()">
+            提交客訴案件
+        </button>
+    </div>
+
+    <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+    <script>
+        let liffId = "YOUR_LIFF_ID";
+        let selectedUrgency = 0;
+        let selectedType = '';
+        let uploadedFiles = [];
+
+        async function initializeLiff() {
+            try {
+                await liff.init({ liffId: liffId });
+                console.log("LIFF initialized successfully");
+            } catch (error) {
+                console.error("LIFF initialization failed", error);
+                showMessage("系統初始化失敗", "error");
+            }
+        }
+
+        // 星級評分系統
+        document.querySelectorAll('.star-rating').forEach(star => {
+            star.addEventListener('click', function() {
+                const rating = parseInt(this.dataset.rating);
+                selectedUrgency = rating;
+                
+                // 更新視覺效果
+                document.querySelectorAll('.star-rating').forEach((s, index) => {
+                    if (index < rating) {
+                        s.style.color = '#ffcc00';
+                        s.classList.add('active');
+                    } else {
+                        s.style.color = '#333';
+                        s.classList.remove('active');
+                    }
+                });
+            });
+        });
+
+        // 類型選擇
+        document.querySelectorAll('.type-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                // 清除所有選中狀態
+                document.querySelectorAll('.type-btn').forEach(b => b.classList.remove('active'));
+                
+                // 設置當前選中
+                this.classList.add('active');
+                selectedType = this.dataset.type;
+            });
+        });
+
+        // 檔案上傳
+        function uploadFile() {
+            document.getElementById('fileInput').click();
+        }
+
+        document.getElementById('fileInput').addEventListener('change', function(e) {
+            const files = Array.from(e.target.files);
+            uploadedFiles = files;
+            
+            if (files.length > 0) {
+                showMessage(`已選擇 ${files.length} 個檔案`, "success");
+                document.querySelector('.upload-btn').innerHTML = 
+                    `<div style="font-size: 48px; margin-bottom: 10px;">✅</div>
+                     <div style="font-size: 16px;">已上傳 ${files.length} 個檔案</div>`;
+            }
+        });
+
+        // 提交客訴
+        async function submitComplaint() {
+            if (selectedUrgency === 0) {
+                showMessage("請選擇緊急程度", "error");
+                return;
+            }
+            
+            if (selectedType === '') {
+                showMessage("請選擇問題類型", "error");
+                return;
+            }
+            
+            const description = document.getElementById('description').value.trim();
+            if (description.length < 10) {
+                showMessage("請至少輸入10個字的描述", "error");
+                return;
+            }
+            
+            // 產生案件編號
+            const caseNumber = generateCaseNumber();
+            
+            // 顯示案件資訊
+            document.getElementById('caseNumber').style.display = 'block';
+            document.querySelector('#caseNumber .menu-title-en').textContent = caseNumber;
+            
+            // 發送回 LINE
+            if (liff.isInClient()) {
+                const message = `🎧 客訴案件已建立\n案件編號：${caseNumber}\n緊急程度：${selectedUrgency}星\n問題類型：${getTypeText(selectedType)}\n\n我們將在24小時內與您聯繫，感謝您的耐心等候。`;
+                
+                await liff.sendMessages([
+                    {
+                        type: "text",
+                        text: message
+                    }
+                ]);
+                
+                showMessage("客訴案件已提交！", "success");
+                
+                setTimeout(() => {
+                    liff.closeWindow();
+                }, 2000);
+            } else {
+                showMessage("請在LINE中開啟此頁面", "error");
+            }
+        }
+
+        function generateCaseNumber() {
+            const date = new Date();
+            const year = date.getFullYear();
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const day = String(date.getDate()).padStart(2, '0');
+            const random = Math.floor(Math.random() * 1000).toString().padStart(3, '0');
+            return `FT-${year}${month}${day}-${random}`;
+        }
+
+        function getTypeText(type) {
+            const types = {
+                'driver': '司機問題',
+                'service': '服務態度',
+                'fare': '車資爭議',
+                'safety': '行車安全',
+                'app': 'APP問題',
+                'other': '其他問題'
+            };
+            return types[type] || '未知類型';
+        }
+
+        function showMessage(message, type) {
+            // 創建臨時訊息元素
+            const msgDiv = document.createElement('div');
+            msgDiv.style.cssText = `
+                position: fixed;
+                top: 20px;
+                left: 50%;
+                transform: translateX(-50%);
+                background: ${type === 'success' ? 'rgba(0, 170, 0, 0.9)' : 'rgba(211, 47, 47, 0.9)'};
+                color: white;
+                padding: 15px 25px;
+                border-radius: 8px;
+                font-size: 16px;
+                z-index: 1000;
+                transition: opacity 0.3s ease;
+            `;
+            msgDiv.textContent = message;
+            document.body.appendChild(msgDiv);
+            
+            setTimeout(() => {
+                msgDiv.style.opacity = '0';
+                setTimeout(() => {
+                    document.body.removeChild(msgDiv);
+                }, 300);
+            }, 3000);
+        }
+
+        // 初始化
+        initializeLiff();
+    </script>
+</body>
+</html>

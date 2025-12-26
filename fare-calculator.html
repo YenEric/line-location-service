@@ -524,51 +524,51 @@
         }
 
         async function confirmBooking() {
-            if (!pickupCoords) {
-                showStatus("無法獲取上車位置", "error");
-                return;
+    if (!pickupCoords) {
+        showStatus("無法獲取上車位置", "error");
+        return;
+    }
+    
+    showStatus("正在處理叫車...", "loading");
+    
+    try {
+        // 獲取完整上車地址
+        const geocoder = new google.maps.Geocoder();
+        const latLng = new google.maps.LatLng(pickupCoords.lat, pickupCoords.lng);
+        
+        geocoder.geocode({ location: latLng }, async (results, status) => {
+            let pickupAddress = "當前位置";
+            if (status === "OK" && results && results.length > 0) {
+                pickupAddress = results[0].formatted_address;
             }
             
-            showStatus("正在處理叫車...", "loading");
-            
-            try {
-                // 獲取完整上車地址
-                const geocoder = new google.maps.Geocoder();
-                const latLng = new google.maps.LatLng(pickupCoords.lat, pickupCoords.lng);
+            // 發送叫車訊息（簡潔版本）
+            if (liff.isInClient()) {
+                const dropoffAddress = document.getElementById('dropoffLocation').value.trim();
+                const message = `🚗 叫車資訊\n上車：${pickupAddress}\n下車：${dropoffAddress}`;
                 
-                geocoder.geocode({ location: latLng }, async (results, status) => {
-                    let pickupAddress = "當前位置";
-                    if (status === "OK" && results && results.length > 0) {
-                        pickupAddress = results[0].formatted_address;
+                await liff.sendMessages([
+                    {
+                        type: "text",
+                        text: message
                     }
-                    
-                    // 發送叫車訊息
-                    if (liff.isInClient()) {
-                        const dropoffAddress = document.getElementById('dropoffLocation').value.trim();
-                        const message = `🚗 叫車資訊\n上車：${pickupAddress}\n下車：${dropoffAddress}`;
-                        
-                        await liff.sendMessages([
-                            {
-                                type: "text",
-                                text: message
-                            }
-                        ]);
-                        
-                        showStatus("叫車請求已發送！", "success");
-                        
-                        setTimeout(() => {
-                            liff.closeWindow();
-                        }, 1500);
-                    } else {
-                        showStatus("請在LINE中開啟此頁面", "error");
-                    }
-                });
+                ]);
                 
-            } catch (error) {
-                console.error("叫車錯誤:", error);
-                showStatus("叫車失敗，請重試", "error");
+                showStatus("叫車請求已發送！", "success");
+                
+                setTimeout(() => {
+                    liff.closeWindow();
+                }, 1500);
+            } else {
+                showStatus("請在LINE中開啟此頁面", "error");
             }
-        }
+        });
+        
+    } catch (error) {
+        console.error("叫車錯誤:", error);
+        showStatus("叫車失敗，請重試", "error");
+    }
+}
 
         function showStatus(message, type = "") {
             const statusDiv = document.getElementById('statusMessage');

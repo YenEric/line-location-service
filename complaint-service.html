@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>客訴服務系統</title>
+    <title>客訴服務系統 </title>
     <!-- Google API -->
     <script src="https://apis.google.com/js/api.js"></script>
     <!-- LINE LIFF -->
@@ -366,100 +366,114 @@
             }
         });
 
-       // 超詳細除錯版本
-async function uploadFilesToGoogleDrive(files) {
-    console.log('=== Google Drive 上傳開始 ===');
-    console.log('檔案數量:', files.length);
-    console.log('Google API 載入狀態:', gapiLoaded);
-    console.log('用戶端 ID:', CLIENT_ID);
-    
-    if (!gapiLoaded) {
-        console.error('❌ Google API 未載入');
-        showUploadStatus('❌ Google API 未載入完成', 'error');
-        return [];
-    }
-    
-    const uploadPromises = files.map(async (file, index) => {
-        try {
-            console.log(`\n--- 開始處理檔案 ${index+1} ---`);
-            console.log(`檔案名稱: ${file.name}`);
-            console.log(`檔案類型: ${file.type}`);
-            console.log(`檔案大小: ${file.size} bytes`);
-            
-            showUploadStatus(`正在處理 ${file.name}...`, 'loading');
-            
-            // 步驟1: 讀取檔案
-            console.log('步驟1: 讀取檔案...');
-            const fileContent = await readFile(file);
-            console.log(`✅ 檔案讀取完成，大小: ${fileContent.byteLength} bytes`);
-            
-            // 步驟2: 準備上傳資料
-            console.log('步驟2: 準備上傳資料...');
-            const fileMetadata = {
-                name: `${document.getElementById('caseId').textContent}_${index+1}_${file.name}`,
-                parents: ['root'],
-                description: `客訴案件證據 - 案件編號: ${document.getElementById('caseId').textContent}`
-            };
-            
-            const media = {
-                mimeType: file.type,
-                body: fileContent
-            };
-            
-            console.log('步驟3: 開始上傳...');
-            console.log('檔案metadata:', fileMetadata);
-            
-            // 步驟4: 執行上傳
-            try {
-                const response = await gapi.client.drive.files.create({
-                    resource: fileMetadata,
-                    media: media,
-                    fields: 'id, name, webViewLink'
-                });
-                
-                console.log(`✅ 檔案 ${index+1} 上傳成功！`);
-                console.log('回應結果:', response.result);
-                
-                // 設定公開分享
-                try {
-                    await makeFilePublic(response.result.id);
-                    console.log(`🔓 檔案 ${response.result.id} 已設定為公開`);
-                } catch (shareError) {
-                    console.warn(`⚠️ 無法設定檔案公開:`, shareError);
-                }
-                
-                return response.result.webViewLink;
-                
-            } catch (apiError) {
-                console.error(`❌ API 錯誤 ${index+1}:`, apiError);
-                console.error('錯誤狀態:', apiError.status);
-                console.error('錯誤訊息:', apiError.message);
-                console.error('錯誤詳情:', apiError.result);
-                
-                // 詳細錯誤分類
-                if (apiError.status === 401) {
-                    return `檔案${index+1}: Google 認證失敗 - 請重新登入`;
-                } else if (apiError.status === 403) {
-                    return `檔案${index+1}: 權限不足 - 無法上傳到此位置`;
-                } else if (apiError.status === 404) {
-                    return `檔案${index+1}: API 不存在 - 請檢查設定`;
-                } else if (apiError.status === 429) {
-                    return `檔案${index+1}: 上傳頻率過高 - 請稍後再試`;
-                } else {
-                    return `檔案${index+1}: API 錯誤 ${apiError.status} - ${apiError.message}`;
-                }
+        // 🔍 Google Drive 上傳核心功能
+        async function uploadFilesToGoogleDrive(files) {
+            if (!gapiLoaded) {
+                showUploadStatus('❌ Google API 未載入完成', 'error');
+                return [];
             }
             
-        } catch (error) {
-            console.error(`❌ 嚴重錯誤 ${index+1}:`, error);
-            console.error('錯誤堆疊:', error.stack);
-            return `檔案${index+1}: 嚴重錯誤 - ${error.message}`;
+            const uploadPromises = files.map(async (file, index) => {
+                try {
+                    showUploadStatus(`正在處理 ${file.name}...`, 'loading');
+                    
+                    // 詳細的錯誤檢查
+                    console.log(`📝 準備上傳檔案 ${index+1}:`, file.name, file.type, file.size);
+                    
+                    // 讀取檔案內容
+                    console.log('步驟1: 讀取檔案...');
+                    const fileContent = await readFile(file);
+                    console.log(`✅ 檔案讀取完成，大小: ${fileContent.byteLength} bytes`);
+                    
+                    // 建立 Google Drive 檔案
+                    console.log('步驟2: 準備上傳資料...');
+                    const fileMetadata = {
+                        name: `${document.getElementById('caseId').textContent}_${index+1}_${file.name}`,
+                        parents: ['root'], // 或你的特定資料夾ID
+                        description: `客訴案件證據 - 案件編號: ${document.getElementById('caseId').textContent}`
+                    };
+                    
+                    const media = {
+                        mimeType: file.type,
+                        body: fileContent
+                    };
+                    
+                    console.log('步驟3: 開始上傳...');
+                    console.log('檔案metadata:', fileMetadata);
+                    
+                    // 上傳到 Google Drive
+                    try {
+                        const response = await gapi.client.drive.files.create({
+                            resource: fileMetadata,
+                            media: media,
+                            fields: 'id, name, webViewLink'
+                        });
+                        
+                        console.log(`✅ 檔案 ${index+1} 上傳成功！`);
+                        console.log('回應結果:', response.result);
+                        
+                        // 設定公開分享
+                        try {
+                            await makeFilePublic(response.result.id);
+                            console.log(`🔓 檔案 ${response.result.id} 已設定為公開`);
+                        } catch (shareError) {
+                            console.warn(`⚠️ 無法設定檔案公開:`, shareError);
+                        }
+                        
+                        return response.result.webViewLink;
+                        
+                    } catch (apiError) {
+                        console.error(`❌ API 錯誤 ${index+1}:`, apiError);
+                        console.error('錯誤狀態:', apiError.status);
+                        console.error('錯誤訊息:', apiError.message);
+                        console.error('錯誤詳情:', apiError.result);
+                        
+                        // 詳細錯誤分類
+                        if (apiError.status === 401) {
+                            return `檔案${index+1}: Google 認證失敗 - 請重新登入`;
+                        } else if (apiError.status === 403) {
+                            return `檔案${index+1}: 權限不足 - 無法上傳到此位置`;
+                        } else if (apiError.status === 404) {
+                            return `檔案${index+1}: API 不存在 - 請檢查設定`;
+                        } else if (apiError.status === 429) {
+                            return `檔案${index+1}: 上傳頻率過高 - 請稍後再試`;
+                        } else {
+                            return `檔案${index+1}: API 錯誤 ${apiError.status} - ${apiError.message}`;
+                        }
+                    }
+                    
+                } catch (error) {
+                    console.error(`❌ 嚴重錯誤 ${index+1}:`, error);
+                    console.error('錯誤堆疊:', error.stack);
+                    return `檔案${index+1}: 嚴重錯誤 - ${error.message}`;
+                }
+            });
+            
+            return Promise.all(uploadPromises);
         }
-    });
-    
-    return Promise.all(uploadPromises);
-}
-        // 加強錯誤回報
+
+        // 讀取檔案內容（修復版）
+        function readFile(file) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onload = (e) => resolve(e.target.result);
+                reader.onerror = (e) => reject(e);
+                reader.readAsArrayBuffer(file);
+            });
+        }
+
+        // 設定檔案公開分享
+        function makeFilePublic(fileId) {
+            return gapi.client.drive.permissions.create({
+                fileId: fileId,
+                resource: {
+                    role: 'reader',
+                    type: 'anyone'
+                }
+            });
+        }
+
+        // 上傳狀態顯示（詳細版）
         function showUploadStatus(message, type) {
             const statusDiv = document.getElementById('uploadStatus');
             statusDiv.className = `upload-status upload-${type}`;
@@ -478,21 +492,6 @@ async function uploadFilesToGoogleDrive(files) {
                     statusDiv.style.display = 'none';
                 }, 5000); // 延長顯示時間
             }
-        }
-
-        // 日期時間案件編號（維持你的格式）
-        function generateCaseNumber() {
-            const now = new Date();
-            const year = now.getFullYear();
-            const month = String(now.getMonth() + 1).padStart(2, '0');
-            const day = String(now.getDate()).padStart(2, '0');
-            const hours = String(now.getHours()).padStart(2, '0');
-            const minutes = String(now.getMinutes()).padStart(2, '0');
-            
-            const caseId = `${year}/${month}/${day}-${hours}${minutes}`;
-            
-            document.getElementById('caseId').textContent = caseId;
-            document.getElementById('caseNumber').style.display = 'block';
         }
 
         // 提交客訴（整合 Google Drive）

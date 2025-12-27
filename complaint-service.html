@@ -2,8 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>客訴服務系統</title>
-    <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+    <title>客訴服務 - 專業黑色系</title>
     <style>
         * {
             margin: 0;
@@ -20,33 +19,40 @@
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            zoom: 1.2; /* 🔍 放大20% */
+            transform: scale(1.2); /* 🔍 1. 放大20% */
         }
         
         .container {
             width: 90%;
-            max-width: 600px; /* 🔍 再放大容器 */
+            max-width: 600px; /* 🔍 加大容器配合放大 */
             background: linear-gradient(135deg, #111111 0%, #0a0a0a 100%);
             border-radius: 25px; /* 🔍 更大圓角 */
-            padding: 50px 40px; /* 🔍 大幅增加內距 */
+            padding: 48px 36px; /* 🔍 增加內距配合放大 */
             box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
             text-align: center;
+            transform: scale(1); /* 確保內部元素正常 */
         }
         
         .header {
             text-align: center;
-            margin-bottom: 50px; /* 🔍 大幅增加間距 */
+            margin-bottom: 48px; /* 🔍 增加間距 */
         }
         
         .header h1 {
-            font-size: 42px; /* 🔍 再放大標題 */
+            font-size: 43px; /* 🔍 放大40%配合整體放大 */
             font-weight: 700;
-            margin-bottom: 20px; /* 🔍 再增加間距 */
+            margin-bottom: 18px; /* 🔍 增加間距 */
             background: linear-gradient(135deg, #ffffff 0%, #cccccc 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
         
+        .header p {
+            font-size: 22px; /* 🔍 放大配合整體 */
+            opacity: 0.9;
+        }
+        
+        /* 用戶資訊顯示 - 根據你的要求#2 */
         .user-info {
             background: rgba(0, 212, 255, 0.1);
             border: 1px solid rgba(0, 212, 255, 0.3);
@@ -62,25 +68,34 @@
             color: #00d4ff;
         }
         
-        .date-time {
-            font-size: 16px;
-            opacity: 0.8;
-            margin-top: 8px;
+        /* 日期時間顯示 - 根據你的要求#3 */
+        .datetime-info {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 30px 0;
+            text-align: center;
+        }
+        
+        .datetime-text {
+            font-size: 18px;
+            font-weight: 500;
         }
         
         .complaint-types {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 20px; /* 🔍 再增加間距 */
-            margin: 40px 0; /* 🔍 再增加間距 */
+            gap: 18px; /* 🔍 增加間距 */
+            margin: 36px 0; /* 🔍 增加間距 */
         }
         
         .type-btn {
             background: linear-gradient(135deg, #1a1a1a 0%, #151515 100%);
             border: 2px solid rgba(255, 255, 255, 0.1);
             color: #ffffff;
-            padding: 25px 20px; /* 🔍 再增加內距 */
-            border-radius: 18px; /* 🔍 再加大圓角 */
+            padding: 24px 18px; /* 🔍 增加內距 */
+            border-radius: 18px; /* 🔍 更大圓角 */
             cursor: pointer;
             transition: all 0.3s ease;
             text-align: center;
@@ -96,7 +111,7 @@
         }
         
         .file-upload {
-            margin: 40px 0; /* 🔍 再增加間距 */
+            margin: 36px 0; /* 🔍 增加間距 */
         }
         
         .upload-btn {
@@ -104,8 +119,8 @@
             background: linear-gradient(135deg, #333333 0%, #222222 100%);
             border: 2px dashed rgba(255, 255, 255, 0.3);
             color: #ffffff;
-            padding: 35px 25px; /* 🔍 再增加內距 */
-            border-radius: 18px; /* 🔍 再加大圓角 */
+            padding: 36px 24px; /* 🔍 增加內距 */
+            border-radius: 18px; /* 🔍 更大圓角 */
             cursor: pointer;
             transition: all 0.3s ease;
             text-align: center;
@@ -118,53 +133,52 @@
         
         textarea {
             width: 100%;
-            height: 180px; /* 🔍 再增加高度 */
+            height: 180px; /* 🔍 增加高度 */
             background: rgba(255,255,255,0.05);
             border: 1px solid rgba(255,255,255,0.2);
-            border-radius: 18px; /* 🔍 再加大圓角 */
+            border-radius: 18px; /* 🔍 更大圓角 */
             color: #ffffff;
-            padding: 25px; /* 🔍 再增加內距 */
+            padding: 24px; /* 🔍 增加內距 */
             font-size: 18px; /* 🔍 放大文字 */
             resize: vertical;
-            margin: 40px 0; /* 🔍 再增加間距 */
+            margin: 36px 0; /* 🔍 增加間距 */
         }
         
-        /* 日期時間顯示 - 簡化版 */
-        .date-time-display {
+        /* 日期時間顯示 - 根據你的要求#3 */
+        .datetime-info {
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 15px;
-            padding: 25px; /* 🔍 增加內距 */
-            margin: 40px 0; /* 🔍 增加間距 */
+            border-radius: 18px; /* 🔍 更大圓角 */
+            padding: 24px; /* 🔍 增加內距 */
+            margin: 36px 0; /* 🔍 增加間距 */
             text-align: center;
         }
         
-        .date-time {
+        .datetime-text {
             font-size: 20px; /* 🔍 放大文字 */
-            font-weight: 600;
-            color: #00d4ff;
+            font-weight: 500;
         }
         
-        /* 淺灰色按鈕 - 維持你的要求 */
+        /* 提交按鈕維持黑色系 - 配合整體風格 */
         .submit-btn {
             width: 100%;
-            background: #e0e0e0; /* 淺灰色背景 */
-            color: #000000; /* 黑色文字 */
+            background: linear-gradient(135deg, #000000 0%, #333333 100%);
+            color: white;
             border: none;
-            padding: 25px; /* 🔍 再增加內距 */
-            font-size: 22px; /* 🔍 再放大文字 */
+            padding: 24px 20px; /* 🔍 增加內距 */
+            font-size: 22px; /* 🔍 放大文字 */
             font-weight: 600;
-            border-radius: 18px; /* 🔍 再加大圓角 */
+            border-radius: 18px; /* 🔍 更大圓角 */
             cursor: pointer;
             transition: all 0.3s ease;
-            margin-top: 40px; /* 🔍 再增加間距 */
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+            margin-top: 36px; /* 🔍 增加間距 */
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
         }
         
         .submit-btn:hover {
-            background: #d0d0d0; /* 稍深灰色 */
+            background: linear-gradient(135deg, #333333 0%, #555555 100%);
             transform: translateY(-4px); /* 🔍 更大浮動 */
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
         }
     </style>
 </head>
@@ -175,10 +189,14 @@
             <p>我們重視您的每一個意見</p>
         </div>
         
-        <!-- 🔍 顯示使用者名稱 - 根據你的要求 -->
-        <div class="user-info" id="userInfo">
+        <!-- 🔍 用戶資訊顯示 - 根據你的要求#2 -->
+        <div class="user-info">
             <div class="user-name" id="userName">載入中...</div>
-            <div class="date-time" id="dateTime">載入中...</div>
+        </div>
+        
+        <!-- 🔍 日期時間顯示 - 根據你的要求#3 -->
+        <div class="datetime-info">
+            <div class="datetime-text" id="datetimeText">載入中...</div>
         </div>
         
         <div class="complaint-types">
@@ -192,7 +210,7 @@
         
         <div class="file-upload">
             <div class="upload-btn" onclick="uploadFile()">
-                <div style="font-size: 60px; margin-bottom: 15px;">📎</div>
+                <div style="font-size: 62px; margin-bottom: 18px;">📎</div>
                 <div style="font-size: 20px;">點擊上傳照片/影片證據</div>
                 <div style="font-size: 16px; opacity: 0.7; margin-top: 10px;">支援 JPG, PNG, MP4 格式</div>
             </div>
@@ -202,15 +220,15 @@
         <textarea id="description" placeholder="請詳細描述您的問題..." 
                   style="width: 100%; height: 180px; background: rgba(255,255,255,0.05); 
                          border: 1px solid rgba(255,255,255,0.2); border-radius: 18px; 
-                         color: #ffffff; padding: 25px; font-size: 18px; 
-                         resize: vertical; margin: 40px 0;"></textarea>
+                         color: #ffffff; padding: 24px; font-size: 18px; 
+                         resize: vertical; margin: 36px 0;"></textarea>
         
-        <!-- 🔍 簡化為日期時間 - 根據你的要求 -->
-        <div class="date-time-display">
-            <div class="date-time" id="dateTime"></div>
+        <!-- 🔍 日期時間顯示 - 根據你的要求#3 -->
+        <div class="datetime-info">
+            <div class="datetime-text" id="datetimeText">載入中...</div>
         </div>
         
-        <!-- 🔍 淺灰色按鈕 - 維持你的要求 -->
+        <!-- 🔍 黑色系提交按鈕 - 維持整體風格 -->
         <button class="submit-btn" onclick="submitComplaint()">
             提交客訴案件
         </button>
@@ -229,27 +247,36 @@
                 await liff.init({ liffId: liffId });
                 console.log("LIFF initialized successfully");
                 
-                // 🔍 獲取使用者資訊和日期時間
+                // 🔍 獲取用戶資訊和日期時間
+                await loadUserInfo();
+                generateDateTime();
+                
+            } catch (error) {
+                console.error("LIFF initialization failed", error);
+                showMessage("系統初始化失敗", "error");
+            }
+        }
+
+        // 🔍 獲取用戶資訊 - 根據你的要求#2
+        async function loadUserInfo() {
+            try {
                 if (liff.isInClient()) {
                     const profile = await liff.getProfile();
                     userName = profile.displayName;
                     document.getElementById('userName').textContent = userName;
                 } else {
-                    userName = '訪客用戶';
+                    userName = '訪客';
                     document.getElementById('userName').textContent = userName;
                 }
-                
-                updateDateTime(); // 🔍 更新日期時間
             } catch (error) {
-                console.error("LIFF initialization failed", error);
-                userName = '訪客用戶';
+                console.error("獲取用戶資訊失敗:", error);
+                userName = '訪客';
                 document.getElementById('userName').textContent = userName;
-                updateDateTime();
             }
         }
 
-        // 🔍 更新日期時間函數
-        function updateDateTime() {
+        // 🔍 產生日期時間 - 根據你的要求#3
+        function generateDateTime() {
             const now = new Date();
             const year = now.getFullYear();
             const month = String(now.getMonth() + 1).padStart(2, '0');
@@ -258,7 +285,7 @@
             const minutes = String(now.getMinutes()).padStart(2, '0');
             
             currentDateTime = `${year}/${month}/${day} ${hours}:${minutes}`;
-            document.getElementById('dateTime').textContent = currentDateTime;
+            document.getElementById('datetimeText').textContent = currentDateTime;
         }
 
         // 類型選擇
@@ -285,31 +312,49 @@
             if (files.length > 0) {
                 showMessage(`已選擇 ${files.length} 個檔案`, "success");
                 document.querySelector('.upload-btn').innerHTML = 
-                    `<div style="font-size: 60px; margin-bottom: 15px;">✅</div>
+                    `<div style="font-size: 62px; margin-bottom: 18px;">✅</div>
                      <div style="font-size: 20px;">已上傳 ${files.length} 個檔案</div>`;
             }
         });
 
-        // 提交客訴 - 🔍 簡化版本（不含檔案和描述）
+        // 🔍 提交客訴 - 包含所有資訊回傳
         async function submitComplaint() {
             if (selectedType === '') {
                 showMessage("請選擇問題類型", "error");
                 return;
             }
             
+            const description = document.getElementById('description').value.trim();
+            if (description.length < 10) {
+                showMessage("請至少輸入10個字的描述", "error");
+                return;
+            }
+            
             showMessage("正在處理客訴...", "loading");
             
             try {
-                // 🔍 簡化回傳內容 - 不含檔案和描述
+                // 🔍 建構完整回傳訊息 - 根據你的要求#4,#5
                 if (liff.isInClient()) {
-                    const message = `🎧 客訴案件已建立\n用戶：${userName}\n日期：${currentDateTime}\n問題類型：${getTypeText(selectedType)}\n\n我們將盡快處理您的問題，感謝您的耐心等候。`;
+                    const message = `🎧 客訴案件已建立\n👤 用戶：${userName}\n📅 時間：${currentDateTime}\n📝 問題類型：${getTypeText(selectedType)}\n💬 問題描述：${description}`;
                     
+                    // 🔍 回傳基本訊息
                     await liff.sendMessages([
                         {
                             type: "text",
                             text: message
                         }
                     ]);
+                    
+                    // 🔍 如果有上傳檔案，回傳檔案資訊
+                    if (uploadedFiles.length > 0) {
+                        const fileMessage = `📎 已上傳 ${uploadedFiles.length} 個檔案`;
+                        await liff.sendMessages([
+                            {
+                                type: "text",
+                                text: fileMessage
+                            }
+                        ]);
+                    }
                     
                     showMessage("客訴案件已提交！", "success");
                     
@@ -347,9 +392,9 @@
                 transform: translateX(-50%);
                 background: ${type === 'success' ? 'rgba(0, 170, 0, 0.9)' : 'rgba(211, 47, 47, 0.9)'};
                 color: white;
-                padding: 20px 30px; /* 🔍 增加內距 */
-                border-radius: 10px;
-                font-size: 18px; /* 🔍 放大文字 */
+                padding: 15px 25px;
+                border-radius: 8px;
+                font-size: 16px;
                 z-index: 1000;
                 transition: opacity 0.3s ease;
             `;

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+<title>乘車規範</title>
+<script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+<style>
+  :root{--black:#121212;--white:#ffffff;--red:#ff4d4d;--green:#00d449;--gray:#b0b0b0}
+  body{margin:0;padding:32px 20px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto;background:var(--black);color:var(--white);display:flex;flex-direction:column;align-items:center;min-height:100vh}
+  h1{font-size:24px;font-weight:600;margin-bottom:8px}
+  .sub{font-size:14px;color:var(--gray);margin-bottom:28px}
+  ul{list-style:none;padding:0;width:100%;max-width:360px}
+  li{display:flex;align-items:flex-start;padding:14px 0;font-size:16px;line-height:1.5;border-bottom:1px solid #333}
+  li span{margin-right:12px;font-size:20px;flex-shrink:0}
+  .ok{color:var(--green)}
+  .no{color:var(--red)}
+  .close-btn{width:100%;max-width:360px;margin-top:auto;margin-bottom:20px;background:var(--white);color:var(--black);border:none;padding:16px 0;font-size:16px;font-weight:600;border-radius:10px;cursor:pointer;transition:all .2s}
+  .close-btn:active{transform:scale(.98)}
+</style>
+</head>
+<body>
+
+<h1>搭車前 5 秒讀完</h1>
+<p class="sub">提早等／15 分走／禁菸禁吐／寵物先 LINE／問題點客訴</p>
+
+<ul>
+  <li><span class="ok">1️⃣</span><div>車多路段或窄巷→請提前到路邊等候，方便司機停靠。</div></li>
+  <li><span class="ok">2️⃣</span><div>司機抵達後 15 分鐘未上車，將依規離場，下次搭乘收取 $100 取消費。</div></li>
+  <li><span class="ok">3️⃣</span><div>全程「不提供後結」，上車即跳錶，下車付清。</div></li>
+  <li><span class="ok">4️⃣</span><div>行程有問題→回圖文選單點「客訴服務」，24h 內回覆。</div></li>
+  <li><span class="no">🚫</span><div>車內全面禁菸，違者拒載。</div></li>
+  <li><span class="no">🤢</span><div>如嘔吐，現場收取清潔費 $500–$5,000（視汙損範圍）。</div></li>
+  <li><span class="no">🐶</span><div>攜帶寵物請先 LINE 告知客服；小型犬「手抱+不落地」免加費，其餘加收 $50 毛髮清潔費。</div></li>
+</ul>
+
+<button class="close-btn" onclick="liff.closeWindow()">關閉</button>
+
+<script>
+liff.init({liffId:'2008784977-XXXXXXXX'});   <!-- 換成你的 LIFF ID -->
+</script>
+</body>
+</html>

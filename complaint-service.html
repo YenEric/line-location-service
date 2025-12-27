@@ -19,36 +19,37 @@
             justify-content: center;
             align-items: center;
             min-height: 100vh;
+            /* 🔍 放大20% - 使用CSS縮放 */
             transform: scale(1.2);
             transform-origin: center center;
         }
         
         .container {
             width: 90%;
-            max-width: 600px;
+            max-width: 600px; /* 🔍 再放大20% */
             background: linear-gradient(135deg, #111111 0%, #0a0a0a 100%);
-            border-radius: 24px;
-            padding: 48px 36px;
+            border-radius: 24px; /* 🔍 更大圓角 */
+            padding: 48px 36px; /* 🔍 再增加內距20% */
             box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
             text-align: center;
         }
         
         .header {
             text-align: center;
-            margin-bottom: 48px;
+            margin-bottom: 48px; /* 🔍 再增加間距20% */
         }
         
         .header h1 {
-            font-size: 43px;
+            font-size: 43px; /* 🔍 再放大20% */
             font-weight: 700;
-            margin-bottom: 18px;
+            margin-bottom: 18px; /* 🔍 再增加間距20% */
             background: linear-gradient(135deg, #ffffff 0%, #cccccc 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
         
         .header p {
-            font-size: 22px;
+            font-size: 22px; /* 🔍 再放大20% */
             opacity: 0.9;
         }
         
@@ -73,92 +74,23 @@
             color: #00d4ff;
         }
         
-        /* 🔍 新式多欄位表單 */
-        .form-section {
-            margin: 36px 0;
-        }
-        
-        .form-label {
-            font-size: 18px;
-            font-weight: 600;
-            margin-bottom: 15px;
-            text-align: left;
-            color: #ffffff;
-        }
-        
-        .form-hint {
-            font-size: 14px;
-            color: #cccccc;
-            margin-bottom: 10px;
-            text-align: left;
-        }
-        
-        .form-input {
-            width: 100%;
-            background: rgba(255,255,255,0.05);
-            border: 2px solid rgba(255,255,255,0.2);
-            border-radius: 12px;
-            color: #ffffff;
-            padding: 16px 20px;
-            font-size: 16px;
-            margin-bottom: 20px;
-            transition: all 0.3s ease;
-        }
-        
-        .form-input:focus {
-            outline: none;
-            border-color: #00d4ff;
-            background: rgba(255,255,255,0.08);
-            box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.2);
-        }
-        
-        /* 🔍 分段填寫指示 */
-        .form-sections {
-            margin: 36px 0;
-        }
-        
-        .section-title {
-            font-size: 20px;
-            font-weight: 600;
-            margin-bottom: 20px;
-            color: #ffffff;
-            text-align: left;
-        }
-        
-        .section-hint {
-            font-size: 14px;
-            color: #cccccc;
-            margin-bottom: 15px;
-            text-align: left;
-            line-height: 1.6;
-        }
-        
-        .section-hint ol {
-            margin-left: 20px;
-            margin-top: 10px;
-        }
-        
-        .section-hint li {
-            margin-bottom: 5px;
-        }
-        
         .complaint-types {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 18px;
-            margin: 36px 0;
+            gap: 18px; /* 🔍 再增加間距20% */
+            margin: 36px 0; /* 🔍 再增加間距20% */
         }
         
         .type-btn {
             background: linear-gradient(135deg, #1a1a1a 0%, #151515 100%);
             border: 2px solid rgba(255, 255, 255, 0.1);
             color: #ffffff;
-            padding: 24px 18px;
-            border-radius: 18px;
+            padding: 24px 18px; /* 🔍 再增加內距20% */
+            border-radius: 18px; /* 🔍 再加大圓角20% */
             cursor: pointer;
             transition: all 0.3s ease;
             text-align: center;
-            font-size: 19px;
+            font-size: 19px; /* 🔍 再放大20% */
             font-weight: 500;
         }
         
@@ -170,7 +102,7 @@
         }
         
         .file-upload {
-            margin: 36px 0;
+            margin: 36px 0; /* 🔍 再增加間距20% */
         }
         
         .upload-btn {
@@ -178,8 +110,8 @@
             background: linear-gradient(135deg, #333333 0%, #222222 100%);
             border: 2px dashed rgba(255, 255, 255, 0.3);
             color: #ffffff;
-            padding: 36px 24px;
-            border-radius: 18px;
+            padding: 36px 24px; /* 🔍 再增加內距20% */
+            border-radius: 18px; /* 🔍 再加大圓角20% */
             cursor: pointer;
             transition: all 0.3s ease;
             text-align: center;
@@ -190,71 +122,17 @@
             background: linear-gradient(135deg, #2a4a4a 0%, #253535 100%);
         }
         
-        /* 🔍 多欄位表單樣式 */
-        .multi-field-form {
-            margin: 36px 0;
-        }
-        
-        .field-group {
-            margin-bottom: 25px;
-        }
-        
-        .field-label {
-            font-size: 16px;
-            font-weight: 600;
-            margin-bottom: 8px;
-            color: #ffffff;
-            display: block;
-            text-align: left;
-        }
-        
-        .field-input {
+        textarea {
             width: 100%;
+            height: 180px; /* 🔍 再增加高度20% */
             background: rgba(255,255,255,0.05);
-            border: 2px solid rgba(255,255,255,0.2);
-            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 18px; /* 🔍 再加大圓角20% */
             color: #ffffff;
-            padding: 16px 20px;
-            font-size: 16px;
-            transition: all 0.3s ease;
-        }
-        
-        .field-input:focus {
-            outline: none;
-            border-color: #00d4ff;
-            background: rgba(255,255,255,0.08);
-            box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.2);
-        }
-        
-        .field-textarea {
-            width: 100%;
-            background: rgba(255,255,255,0.05);
-            border: 2px solid rgba(255,255,255,0.2);
-            border-radius: 12px;
-            color: #ffffff;
-            padding: 16px 20px;
-            font-size: 16px;
-            height: 120px;
+            padding: 24px; /* 🔍 再增加內距20% */
+            font-size: 19px; /* 🔍 再放大20% */
             resize: vertical;
-            transition: all 0.3s ease;
-        }
-        
-        .field-textarea:focus {
-            outline: none;
-            border-color: #00d4ff;
-            background: rgba(255,255,255,0.08);
-            box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.2);
-        }
-        
-        /* 🔍 自動定位樣式 */
-        .auto-focus {
-            animation: pulse 2s infinite;
-        }
-        
-        @keyframes pulse {
-            0% { box-shadow: 0 0 0 0 rgba(0, 212, 255, 0.4); }
-            70% { box-shadow: 0 0 0 10px rgba(0, 212, 255, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(0, 212, 255, 0); }
+            margin: 36px 0; /* 🔍 再增加間距20% */
         }
         
         /* 🔍 日期時間案件編號 */
@@ -262,8 +140,8 @@
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 15px;
-            padding: 24px;
-            margin: 36px 0;
+            padding: 24px; /* 🔍 再增加內距20% */
+            margin: 36px 0; /* 🔍 再增加間距20% */
             text-align: center;
         }
         
@@ -273,7 +151,7 @@
         }
         
         .case-number .case-id {
-            font-size: 28px;
+            font-size: 28px; /* 🔍 再放大20% */
             font-weight: bold;
             color: #00d4ff;
         }
@@ -284,19 +162,19 @@
             background: #e0e0e0; /* 淺灰色背景 */
             color: #000000; /* 黑色文字 */
             border: none;
-            padding: 24px;
-            font-size: 24px;
+            padding: 24px; /* 🔍 再增加內距20% */
+            font-size: 24px; /* 🔍 再放大20% */
             font-weight: 600;
-            border-radius: 18px;
+            border-radius: 18px; /* 🔍 再加大圓角20% */
             cursor: pointer;
             transition: all 0.3s ease;
-            margin-top: 36px;
+            margin-top: 36px; /* 🔍 再增加間距20% */
             box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
         }
         
         .submit-btn:hover {
             background: #d0d0d0; /* 稍深灰色 */
-            transform: translateY(-4px);
+            transform: translateY(-4px); /* 🔍 更大浮動 */
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
         }
     </style>
@@ -312,47 +190,6 @@
         <div class="user-welcome" id="userWelcome">
             <div class="greeting">您好！</div>
             <div class="username" id="userName">載入中...</div>
-        </div>
-        
-        <!-- 🔍 新式多欄位表單 -->
-        <div class="form-sections">
-            <!-- 🔍 移除 "請提供以下資訊：" 文字 -->
-            <div class="section-hint">
-                <ol>
-                    <li>乘車日期：</li>
-                    <li>上車地址：</li>
-                    <li>司機車號：</li>
-                    <li>詳細描述：</li>
-                </ol>
-            </div>
-            
-            <!-- 🔍 乘車日期 - 自動定位 -->
-            <div class="field-group">
-                <label class="field-label" for="rideDate">1. 乘車日期：</label>
-                <input type="date" id="rideDate" class="field-input auto-focus" 
-                       placeholder="請選擇乘車日期" required>
-            </div>
-            
-            <!-- 🔍 上車地址 -->
-            <div class="field-group">
-                <label class="field-label" for="pickupAddress">2. 上車地址：</label>
-                <input type="text" id="pickupAddress" class="field-input" 
-                       placeholder="請輸入上車地址" required>
-            </div>
-            
-            <!-- 🔍 司機車號 -->
-            <div class="field-group">
-                <label class="field-label" for="driverPlate">3. 司機車號：</label>
-                <input type="text" id="driverPlate" class="field-input" 
-                       placeholder="請輸入司機車牌號碼" required>
-            </div>
-            
-            <!-- 🔍 詳細描述 -->
-            <div class="field-group">
-                <label class="field-label" for="description">4. 詳細描述：</label>
-                <textarea id="description" class="field-textarea" 
-                          placeholder="請詳細描述您的問題..." required></textarea>
-            </div>
         </div>
         
         <div class="complaint-types">
@@ -373,19 +210,30 @@
             <input type="file" id="fileInput" style="display: none;" accept="image/*,video/*" multiple>
         </div>
         
+        <textarea id="description" 
+          placeholder="請提供以下資訊：
+1.乘車日期：
+2.上車地址：
+3.司機車號：
+4.詳細描述：" 
+          style="width: 100%; height: 180px; background: rgba(255,255,255,0.05); 
+                 border: 1px solid rgba(255,255,255,0.2); border-radius: 18px; 
+                 color: #ffffff; padding: 24px; font-size: 19px; 
+                 resize: vertical; margin: 36px 0;"></textarea>
+        
         <!-- 🔍 日期時間案件編號 -->
         <div class="case-number" id="caseNumber" style="display: none;">
             <div class="date-time">案件建立時間</div>
             <div class="case-id" id="caseId"></div>
         </div>
         
-        <!-- 🔍 淺灰色按鈕 -->
+        <!-- 🔍 淺灰色按鈕 - 維持你的要求 -->
         <button class="submit-btn" onclick="submitComplaint()">
             提交客訴案件
         </button>
     </div>
 
-    <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+    <script src="https://static.line-scdn.net/liff/edge/2/sdk.js "></script>
     <script>
         let liffId = "2008784977-HdgsRmmR";
         let selectedType = '';
@@ -408,47 +256,12 @@
                 }
                 
                 generateCaseNumber(); // 🔍 產生案件編號
-                setupForm(); // 🔍 設定表單
             } catch (error) {
                 console.error("LIFF initialization failed", error);
                 userName = '訪客';
                 document.getElementById('userName').textContent = userName;
                 generateCaseNumber();
-                setupForm();
             }
-        }
-
-        // 🔍 設定表單（包含自動定位）
-        function setupForm() {
-            // 自動填入今天日期
-            const today = new Date();
-            const dateString = today.toISOString().split('T')[0];
-            document.getElementById('rideDate').value = dateString;
-            
-            // 🔍 自動定位到第一個欄位（乘車日期）
-            const firstInput = document.getElementById('rideDate');
-            firstInput.focus();
-            firstInput.classList.add('auto-focus');
-            
-            // 移除聚焦動畫延遲
-            setTimeout(() => {
-                firstInput.classList.remove('auto-focus');
-            }, 2000);
-        }
-
-        // 🔍 產生日期時間案件編號
-        function generateCaseNumber() {
-            const now = new Date();
-            const year = now.getFullYear();
-            const month = String(now.getMonth() + 1).padStart(2, '0');
-            const day = String(now.getDate()).padStart(2, '0');
-            const hours = String(now.getHours()).padStart(2, '0');
-            const minutes = String(now.getMinutes()).padStart(2, '0');
-            
-            const caseId = `${year}/${month}/${day}-${hours}${minutes}`;
-            
-            document.getElementById('caseId').textContent = caseId;
-            document.getElementById('caseNumber').style.display = 'block';
         }
 
         // 類型選擇
@@ -480,56 +293,34 @@
             }
         });
 
-        // 表單驗證
-        function validateForm() {
-            const rideDate = document.getElementById('rideDate').value;
-            const pickupAddress = document.getElementById('pickupAddress').value;
-            const driverPlate = document.getElementById('driverPlate').value;
-            const description = document.getElementById('description').value;
+        // 🔍 產生日期時間案件編號
+        function generateCaseNumber() {
+            const now = new Date();
+            const year = now.getFullYear();
+            const month = String(now.getMonth() + 1).padStart(2, '0');
+            const day = String(now.getDate()).padStart(2, '0');
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
             
-            if (!rideDate) {
-                showMessage("請選擇乘車日期", "error");
-                document.getElementById('rideDate').focus();
-                return false;
-            }
+            const caseId = `${year}/${month}/${day}-${hours}${minutes}`;
             
-            if (!pickupAddress || pickupAddress.length < 5) {
-                showMessage("請輸入完整的上車地址", "error");
-                document.getElementById('pickupAddress').focus();
-                return false;
-            }
-            
-            if (!driverPlate || driverPlate.length < 5) {
-                showMessage("請輸入完整的司機車牌號碼", "error");
-                document.getElementById('driverPlate').focus();
-                return false;
-            }
-            
-            if (!description || description.length < 10) {
-                showMessage("請至少輸入10個字的詳細描述", "error");
-                document.getElementById('description').focus();
-                return false;
-            }
-            
-            return true;
+            document.getElementById('caseId').textContent = caseId;
+            document.getElementById('caseNumber').style.display = 'block';
         }
 
         // 提交客訴
         async function submitComplaint() {
-            if (!validateForm()) {
-                return;
-            }
-            
             if (selectedType === '') {
                 showMessage("請選擇問題類型", "error");
                 return;
             }
             
-            // 收集表單資料
-            const rideDate = document.getElementById('rideDate').value;
-            const pickupAddress = document.getElementById('pickupAddress').value;
-            const driverPlate = document.getElementById('driverPlate').value;
-            const description = document.getElementById('description').value;
+            const description = document.getElementById('description').value.trim();
+            if (description.length < 10) {
+                showMessage("請至少輸入10個字的描述", "error");
+                return;
+            }
+            
             const caseNumber = document.getElementById('caseId').textContent;
             
             showMessage("正在處理客訴...", "loading");
@@ -537,7 +328,7 @@
             try {
                 // 發送回 LINE
                 if (liff.isInClient()) {
-                    const message = `🎧 客訴案件已建立\n案件編號：${caseNumber}\n用戶：${userName}\n乘車日期：${rideDate}\n上車地址：${pickupAddress}\n司機車號：${driverPlate}\n問題類型：${getTypeText(selectedType)}\n\n詳細描述：${description}\n\n我們將盡快處理您的問題，感謝您的耐心等候。`;
+                    const message = `🎧 客訴案件已建立\n案件編號：${caseNumber}\n用戶：${userName}\n問題類型：${getTypeText(selectedType)}\n\n我們將盡快處理您的問題，感謝您的耐心等候。`;
                     
                     await liff.sendMessages([
                         {
@@ -579,12 +370,12 @@
                 position: fixed;
                 top: 20px;
                 left: 50%;
-                transform: translateX(-50%) scale(1.2);
+                transform: translateX(-50%);
                 background: ${type === 'success' ? 'rgba(0, 170, 0, 0.9)' : 'rgba(211, 47, 47, 0.9)'};
                 color: white;
                 padding: 15px 25px;
                 border-radius: 8px;
-                font-size: 19px;
+                font-size: 16px;
                 z-index: 1000;
                 transition: opacity 0.3s ease;
             `;

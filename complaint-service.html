@@ -26,7 +26,7 @@
         .container {
             width: 90%;
             max-width: 600px;
-            background: linear-gradient(135deg, #111111 0%, #0a0a0a 100%);
+            background: linear-gradient(135deg, #111111 0%, #0a0a1a 100%);
             border-radius: 24px;
             padding: 48px 36px;
             box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
@@ -130,24 +130,7 @@
             transform: translateY(-3px);
         }
         
-        /* 🔍 多欄位表單樣式 */
-        .multi-field-form {
-            margin: 36px 0;
-        }
-        
-        .field-group {
-            margin-bottom: 25px;
-        }
-        
-        .field-label {
-            font-size: 16px;
-            font-weight: 600;
-            margin-bottom: 8px;
-            color: #ffffff;
-            display: block;
-            text-align: left;
-        }
-        
+        /* 🔍 優化日期輸入 - 跨平台相容 */
         .field-input {
             width: 100%;
             background: rgba(255,255,255,0.05);
@@ -157,6 +140,9 @@
             padding: 16px 20px;
             font-size: 16px;
             transition: all 0.3s ease;
+            /* 🔍 優化日期輸入樣式 */
+            min-height: 50px;
+            line-height: normal;
         }
         
         .field-input:focus {
@@ -166,6 +152,27 @@
             box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.2);
         }
         
+        /* 🔍 特殊日期輸入優化 */
+        input[type="date"] {
+            appearance: none;
+            -webkit-appearance: none;
+            background: rgba(255,255,255,0.05);
+            border: 2px solid rgba(255,255,255,0.2);
+            border-radius: 12px;
+            color: #ffffff;
+            padding: 16px 20px;
+            font-size: 16px;
+            min-height: 50px;
+            line-height: normal;
+        }
+        
+        input[type="date"]:focus {
+            border-color: #00d4ff;
+            background: rgba(255,255,255,0.08);
+            box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.2);
+        }
+        
+        /* 🔍 文字輸入框 */
         .field-textarea {
             width: 100%;
             background: rgba(255,255,255,0.05);
@@ -207,7 +214,7 @@
             color: #00d4ff;
         }
         
-        /* 🔍 淺灰色按鈕 - 維持你的要求 */
+        /* 🔍 淺灰色按鈕 */
         .submit-btn {
             width: 100%;
             background: #e0e0e0; /* 淺灰色背景 */
@@ -255,7 +262,7 @@
                 </ol>
             </div>
             
-            <!-- 🔍 乘車日期 - 自動定位 -->
+            <!-- 🔍 乘車日期 - 優化跨平台 -->
             <div class="field-group">
                 <label class="field-label" for="rideDate">1. 乘車日期：</label>
                 <input type="date" id="rideDate" class="field-input auto-focus" 

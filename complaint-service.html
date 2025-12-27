@@ -366,98 +366,95 @@
             }
         });
 
-        // 🔍 Google Drive 上傳核心功能
-        async function uploadFilesToGoogleDrive(files) {
-            if (!gapiLoaded) {
-                throw new Error('Google API 尚未載入完成');
-            }
+       // 加強錯誤處理版本
+async function uploadFilesToGoogleDrive(files) {
+    if (!gapiLoaded) {
+        showUploadStatus('❌ Google API 尚未載入完成', 'error');
+        return [];
+    }
+    
+    const uploadPromises = files.map(async (file, index) => {
+        try {
+            showUploadStatus(`正在上傳 ${file.name}...`, 'loading');
             
-            const uploadPromises = files.map(async (file, index) => {
-                try {
-                    showUploadStatus(`正在上傳 ${file.name}...`, 'loading');
+            // 詳細的錯誤檢查
+            console.log(`📝 準備上傳檔案 ${index+1}:`, file.name, file.type, file.size);
+            
+            // 讀取檔案內容
+            const fileContent = await readFile(file);
+            console.log(`📖 檔案 ${index+1} 讀取完成，大小: ${fileContent.byteLength} bytes`);
+            
+            // 建立 Google Drive 檔案
+            const fileMetadata = {
+                name: `${document.getElementById('caseId').textContent}_${index+1}_${file.name}`,
+                parents: ['root'],
+                description: `客訴案件證據 - 案件編號: ${document.getElementById('caseId').textContent}`
+            };
+            
+            const media = {
+                mimeType: file.type,
+                body: fileContent
+            };
+            
+            console.log(`🚀 開始上傳檔案 ${index+1}...`);
+            
+            // 上傳到 Google Drive
+            const response = await gapi.client.drive.files.create({
+                resource: fileMetadata,
+                media: media,
+                fields: 'id, name, webViewLink'
+            });
+            
+            console.log(`✅ 檔案 ${index+1} 上傳成功:`, response.result);
                     
-                    // 讀取檔案內容
-                    const fileContent = await readFile(file);
+            // 設定公開分享
+                    try {
+                        await makeFilePublic(response.result.id);
+                        console.log(`🔓 檔案 ${response.result.id} 已設定為公開`);
+                    } catch (shareError) {
+                        console.warn(`⚠️ 無法設定檔案公開:`, shareError);
+                    }
                     
-                    // 建立 Google Drive 檔案
-                    const fileMetadata = {
-                        name: `${document.getElementById('caseId').textContent}_${index+1}_${file.name}`,
-                        parents: ['root'], // 或你的特定資料夾ID
-                        description: `客訴案件證據 - 案件編號: ${document.getElementById('caseId').textContent}`
-                    };
-                    
-                    const media = {
-                        mimeType: file.type,
-                        body: fileContent
-                    };
-                    
-                    // 上傳到 Google Drive
-                    const response = await gapi.client.drive.files.create({
-                        resource: fileMetadata,
-                        media: media,
-                        fields: 'id, name, webViewLink'
-                    });
-                    
-                    const uploadedFile = response.result;
-                    console.log(`✅ 檔案 ${file.name} 上傳成功:`, uploadedFile);
-                    
-                    // 設定公開分享（可選）
-                    await makeFilePublic(uploadedFile.id);
-                    
-                    return uploadedFile.webViewLink;
+                    return response.result.webViewLink;
                     
                 } catch (error) {
-                    console.error(`檔案 ${file.name} 上傳失敗:`, error);
-                    return `檔案${index+1}上傳失敗`;
+                    console.error(`❌ 檔案 ${index+1} 上傳失敗:`, error);
+                    console.error('錯誤詳情:', error.message, error.stack);
+                    
+                    // 詳細錯誤訊息
+                    if (error.status === 401) {
+                        return `檔案${index+1}: 認證失敗 - 請重新登入Google`;
+                    } else if (error.status === 403) {
+                        return `檔案${index+1}: 權限不足 - 無法上傳到此資料夾`;
+                    } else if (error.status === 429) {
+                        return `檔案${index+1}: 上傳頻率過高 - 請稍後再試`;
+                    } else {
+                        return `檔案${index+1}: 上傳失敗 (${error.status || '未知錯誤'})`;
+                    }
                 }
             });
             
             return Promise.all(uploadPromises);
         }
 
-        // 讀取檔案內容
-        function readFile(file) {
-            return new Promise((resolve, reject) => {
-                const reader = new FileReader();
-                reader.onload = (e) => resolve(e.target.result);
-                reader.onerror = (e) => reject(e);
-                reader.readAsArrayBuffer(file);
-            });
-        }
-
-        // 設定檔案公開分享
-        async function makeFilePublic(fileId) {
-            try {
-                await gapi.client.drive.permissions.create({
-                    fileId: fileId,
-                    resource: {
-                        role: 'reader',
-                        type: 'anyone'
-                    }
-                });
-                console.log(`✅ 檔案 ${fileId} 已設定為公開分享`);
-            } catch (error) {
-                console.warn(`⚠️ 無法設定檔案 ${fileId} 為公開:`, error);
-            }
-        }
-
-        // 上傳狀態顯示
+        // 加強錯誤回報
         function showUploadStatus(message, type) {
             const statusDiv = document.getElementById('uploadStatus');
             statusDiv.className = `upload-status upload-${type}`;
             statusDiv.innerHTML = message;
             statusDiv.style.display = 'block';
             
+            // 詳細錯誤記錄
+            console.log(`[${new Date().toLocaleTimeString()}] 上傳狀態: ${message}`);
+            
             if (type === 'link') {
-                // 顯示可點擊的連結
                 statusDiv.innerHTML = `<div class="drive-link">${message}</div>`;
             }
             
-            // 3秒後自動隱藏
             if (type !== 'loading') {
                 setTimeout(() => {
                     statusDiv.style.display = 'none';
-                }, 3000);
+                }, 5000); // 延長顯示時間
             }
         }
 

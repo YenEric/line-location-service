@@ -1,4 +1,4 @@
-    <!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
@@ -13,7 +13,6 @@
             padding: 0;
             box-sizing: border-box;
         }
-        
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
             background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
@@ -21,7 +20,6 @@
             color: #ffffff;
             padding: 20px;
         }
-        
         .container {
             max-width: 400px;
             margin: 0 auto;
@@ -30,78 +28,66 @@
             box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
             overflow: hidden;
         }
-        
         .header {
             background: linear-gradient(135deg, #000000 0%, #333333 100%);
             color: white;
             padding: 30px 25px;
             text-align: center;
         }
-        
         .header h1 {
             font-size: 24px;
             font-weight: 600;
             margin-bottom: 8px;
         }
-        
         .header p {
             font-size: 14px;
             opacity: 0.9;
         }
-        
         .content {
             padding: 30px 25px;
         }
-        
         .location-section {
             margin-bottom: 25px;
         }
-        
         .location-label {
             font-size: 14px;
             color: #666666;
             margin-bottom: 8px;
             font-weight: 500;
         }
-        
-       .location-btn {
-    width: 100%;
-    background: linear-gradient(135deg, #000000 0%, #333333 100%);
-    color: white;
-    border: none;
-    padding: 16px 20px;
-    font-size: 16px;
-    font-weight: 500;
-    border-radius: 12px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-}
-
-.location-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
-}
-
-.location-btn:active {
-    transform: translateY(0);
-}
-
-.location-btn:disabled {
-    background: #cccccc;
-    cursor: not-allowed;
-    box-shadow: none;
-}
-
-.location-btn.loading {
-    background: #cccccc;
-    cursor: not-allowed;
-}
-        
+        .location-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #000000 0%, #333333 100%);
+            color: white;
+            border: none;
+            padding: 16px 20px;
+            font-size: 16px;
+            font-weight: 500;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .location-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .location-btn:active {
+            transform: translateY(0);
+        }
+        .location-btn:disabled {
+            background: #cccccc;
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+        .location-btn.loading {
+            background: #cccccc;
+            cursor: not-allowed;
+        }
         .location-input {
             width: 100%;
             padding: 16px 20px;
@@ -111,14 +97,12 @@
             transition: all 0.3s ease;
             background: #f8f8f8;
         }
-        
         .location-input:focus {
             outline: none;
             border-color: #000000;
             background: #ffffff;
             box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1);
         }
-        
         .location-display {
             background: #f0f0f0;
             padding: 16px 20px;
@@ -129,7 +113,6 @@
             position: relative;
             padding-left: 45px;
         }
-        
         .location-display::before {
             content: "📍";
             position: absolute;
@@ -138,7 +121,6 @@
             transform: translateY(-50%);
             font-size: 20px;
         }
-        
         .calculate-btn {
             width: 100%;
             background: linear-gradient(135deg, #000000 0%, #333333 100%);
@@ -153,19 +135,16 @@
             margin-top: 20px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
         }
-        
         .calculate-btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
         }
-        
         .calculate-btn:disabled {
             background: #cccccc;
             cursor: not-allowed;
             transform: none;
             box-shadow: none;
         }
-        
         .fare-result {
             margin-top: 25px;
             padding: 25px;
@@ -175,60 +154,59 @@
             display: none;
             border: 1px solid #e0e0e0;
         }
-        
         .fare-amount {
             font-size: 36px;
             font-weight: 700;
             color: #000000;
             margin-bottom: 10px;
         }
-        
         .fare-range {
             font-size: 14px;
             color: #666666;
             margin-bottom: 15px;
         }
-        
         .route-info {
             font-size: 13px;
             color: #888888;
             margin-bottom: 20px;
             line-height: 1.5;
         }
-        
-       .confirm-btn {
-    width: 100%;
-    background: #ffffff;
-    color: #000000;
-    border: 2px solid #d0d0d0;
-    padding: 18px;
-    font-size: 18px;
-    font-weight: 600;
-    border-radius: 12px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-
-.confirm-btn:hover {
-    background: #f8f8f8;
-    border-color: #b0b0b0;
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-}
-
-.confirm-btn:active {
-    transform: translateY(0);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-
-.confirm-btn:disabled {
-    background: #f0f0f0;
-    color: #999999;
-    border-color: #e0e0e0;
-    cursor: not-allowed;
-}
-        
+        #map {
+            height: 250px;
+            width: 100%;
+            margin-top: 15px;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        .confirm-btn {
+            width: 100%;
+            background: #ffffff;
+            color: #000000;
+            border: 2px solid #d0d0d0;
+            padding: 18px;
+            font-size: 18px;
+            font-weight: 600;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        .confirm-btn:hover {
+            background: #f8f8f8;
+            border-color: #b0b0b0;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+        .confirm-btn:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        .confirm-btn:disabled {
+            background: #f0f0f0;
+            color: #999999;
+            border-color: #e0e0e0;
+            cursor: not-allowed;
+        }
         .loading {
             display: inline-block;
             width: 20px;
@@ -240,27 +218,22 @@
             margin-right: 10px;
             vertical-align: middle;
         }
-        
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
-        
         .status-message {
             text-align: center;
             padding: 20px;
             font-size: 16px;
             font-weight: 500;
         }
-        
         .status-success {
             color: #00aa00;
         }
-        
         .status-error {
             color: #d32f2f;
         }
-        
         .hidden {
             display: none !important;
         }
@@ -288,7 +261,7 @@
             <div class="location-section">
                 <div class="location-label">下車地點</div>
                 <input type="text" id="dropoffLocation" class="location-input" 
-                       placeholder="請輸入完整下車地址""
+                       placeholder="請輸入完整下車地址">
             </div>
             
             <button id="calculateBtn" class="calculate-btn" onclick="calculateFare()">
@@ -302,9 +275,11 @@
                     距離：<span id="distance">0</span>公里 | 
                     預估時間：<span id="duration">0</span>分鐘
                 </div>
+                <!-- Google Maps 路線圖容器 -->
+                <div id="map"></div>
                 <button class="confirm-btn" onclick="confirmBooking()">
-    <span style="font-weight: 700;">確認叫車</span>
-</button>
+                    <span style="font-weight: 700;">確認叫車</span>
+                </button>
             </div>
             
             <div id="statusMessage" class="status-message hidden"></div>
@@ -319,38 +294,58 @@
         let calculatedDistance = 0;
         let calculatedDuration = 0;
         let baseFare = 0;
-        
+
+        let map;
+        let directionsRenderer;
+
         // 計價公式（不顯示給使用者）
         const FARE_RULES = {
-            baseFare: 80,           // 起跳價
-            perKm: 15,              // 每公里
-            perMinute: 3,           // 每分鐘
-            longDistanceThreshold: 20,  // 20公里以上
-            longDistanceSurcharge: 10,  // 超過部分每公里加收
-            floatingRange: 0.05     // 5% 浮動
+            baseFare: 80,
+            perKm: 15,
+            perMinute: 3,
+            longDistanceThreshold: 20,
+            longDistanceSurcharge: 10,
+            floatingRange: 0.05
         };
 
         async function initializeLiff() {
             try {
                 await liff.init({ liffId: liffId });
                 console.log("LIFF initialized successfully");
-                // 不要自動獲取位置，等使用者點擊
             } catch (error) {
                 console.error("LIFF initialization failed", error);
                 showStatus("系統初始化失敗", "error");
             }
         }
 
+        function initMap() {
+            map = new google.maps.Map(document.getElementById("map"), {
+                zoom: 13,
+                center: { lat: 24.1477, lng: 120.6736 },
+            });
+
+            directionsRenderer = new google.maps.DirectionsRenderer({
+                suppressMarkers: false,
+                polylineOptions: {
+                    strokeColor: "#000000",
+                    strokeOpacity: 0.8,
+                    strokeWeight: 5
+                }
+            });
+
+            directionsRenderer.setMap(map);
+            console.log("✅ Google Maps 初始化完成");
+        }
+
         function getCurrentLocation() {
             const button = document.getElementById('getLocationBtn');
             const locationDisplay = document.getElementById('pickupLocation');
-            
+
             if (!navigator.geolocation) {
                 showStatus("您的裝置不支援位置服務", "error");
                 return;
             }
 
-            // 顯示載入狀態
             button.innerHTML = '<span class="loading"></span>獲取位置中...';
             button.disabled = true;
 
@@ -360,12 +355,11 @@
                         lat: position.coords.latitude,
                         lng: position.coords.longitude
                     };
-                    
+
                     try {
-                        // 使用 Google Maps Geocoder
                         const geocoder = new google.maps.Geocoder();
                         const latLng = new google.maps.LatLng(pickupCoords.lat, pickupCoords.lng);
-                        
+
                         geocoder.geocode({ location: latLng }, (results, status) => {
                             if (status === "OK" && results && results.length > 0) {
                                 const address = results[0].formatted_address;
@@ -373,13 +367,11 @@
                             } else {
                                 locationDisplay.textContent = `當前位置 (${pickupCoords.lat.toFixed(4)}, ${pickupCoords.lng.toFixed(4)})`;
                             }
-                            
-                            // 顯示地址並隱藏按鈕
                             locationDisplay.classList.remove('hidden');
                             button.style.display = 'none';
                             showStatus("位置獲取成功！", "success");
                         });
-                        
+
                     } catch (error) {
                         console.error("獲取地址錯誤:", error);
                         locationDisplay.textContent = `當前位置 (${pickupCoords.lat.toFixed(4)}, ${pickupCoords.lng.toFixed(4)})`;
@@ -403,8 +395,6 @@
                             errorMsg = "獲取位置失敗";
                     }
                     showStatus(errorMsg, "error");
-                    
-                    // 恢復按鈕狀態
                     button.innerHTML = '<span class="location-icon">📍</span>使用當前位置';
                     button.disabled = false;
                 },
@@ -418,28 +408,26 @@
 
         async function calculateFare() {
             const dropoffAddress = document.getElementById('dropoffLocation').value.trim();
-            
+
             if (!dropoffAddress) {
                 showStatus("請輸入下車地址", "error");
                 return;
             }
-            
+
             if (!pickupCoords) {
                 showStatus("請先獲取上車位置", "error");
                 return;
             }
-            
+
             const button = document.getElementById('calculateBtn');
             const btnText = document.getElementById('btnText');
-            
+
             btnText.innerHTML = '<span class="loading"></span>計算中...';
             button.disabled = true;
-            
+
             try {
-                // 使用 Google Maps Geocoder
                 const geocoder = new google.maps.Geocoder();
-                
-                // 地理編碼下車地址
+
                 geocoder.geocode({ address: dropoffAddress }, (results, status) => {
                     if (status === "OK" && results && results.length > 0) {
                         const location = results[0].geometry.location;
@@ -447,54 +435,47 @@
                             lat: location.lat(),
                             lng: location.lng()
                         };
-                        
-                        // 使用 DirectionsService
+
                         const directionsService = new google.maps.DirectionsService();
-                        
+
                         const request = {
                             origin: new google.maps.LatLng(pickupCoords.lat, pickupCoords.lng),
                             destination: new google.maps.LatLng(dropoffCoords.lat, dropoffCoords.lng),
                             travelMode: google.maps.TravelMode.DRIVING,
                             language: 'zh-TW'
                         };
-                        
+
                         directionsService.route(request, (result, status) => {
                             if (status === "OK" && result.routes && result.routes.length > 0) {
                                 const route = result.routes[0];
                                 const leg = route.legs[0];
-                                
-                                calculatedDistance = leg.distance.value / 1000; // 公里
-                                calculatedDuration = leg.duration.value / 60;   // 分鐘
-                                
-                                // 計算車資
+
+                                calculatedDistance = leg.distance.value / 1000;
+                                calculatedDuration = leg.duration.value / 60;
+
                                 baseFare = calculateBaseFare(calculatedDistance, calculatedDuration);
-                                
-                                // 顯示結果
                                 displayFareResult(baseFare, calculatedDistance, calculatedDuration);
-                                
+
+                                // 🗺️ 繪製路線
+                                directionsRenderer.setDirections(result);
                             } else {
                                 showStatus("無法規劃路線", "error");
                             }
-                            
-                            // 恢復按鈕狀態
+
                             btnText.textContent = "估算車資";
                             button.disabled = false;
                         });
-                        
+
                     } else {
                         showStatus("找不到下車地點", "error");
-                        
-                        // 恢復按鈕狀態
                         btnText.textContent = "估算車資";
                         button.disabled = false;
                     }
                 });
-                
+
             } catch (error) {
                 console.error("計算錯誤:", error);
                 showStatus("計算失敗，請重試", "error");
-                
-                // 恢復按鈕狀態
                 btnText.textContent = "估算車資";
                 button.disabled = false;
             }
@@ -502,24 +483,18 @@
 
         function calculateBaseFare(distance, duration) {
             let fare = FARE_RULES.baseFare;
-            
-            // 距離費用
             fare += distance * FARE_RULES.perKm;
-            
-            // 時間費用
             fare += duration * FARE_RULES.perMinute;
-            
-            // 長途加收
+
             if (distance > FARE_RULES.longDistanceThreshold) {
                 const extraDistance = distance - FARE_RULES.longDistanceThreshold;
                 fare += extraDistance * FARE_RULES.longDistanceSurcharge;
             }
-            
-            // 加入 5% 浮動範圍
+
             const floatingAmount = fare * FARE_RULES.floatingRange;
             const minFare = fare - floatingAmount;
             const maxFare = fare + floatingAmount;
-            
+
             return {
                 base: Math.round(fare),
                 min: Math.round(minFare),
@@ -532,68 +507,55 @@
             document.getElementById('fareRange').textContent = `浮動範圍 $${fareData.min} - $${fareData.max}`;
             document.getElementById('distance').textContent = distance.toFixed(1);
             document.getElementById('duration').textContent = Math.round(duration);
-            
             document.getElementById('fareResult').style.display = 'block';
             hideStatus();
         }
 
         async function confirmBooking() {
-    if (!pickupCoords) {
-        showStatus("無法獲取上車位置", "error");
-        return;
-    }
-    
-    showStatus("正在處理叫車...", "loading");
-    
-    try {
-        // 獲取完整上車地址
-        const geocoder = new google.maps.Geocoder();
-        const latLng = new google.maps.LatLng(pickupCoords.lat, pickupCoords.lng);
-        
-        geocoder.geocode({ location: latLng }, async (results, status) => {
-            let pickupAddress = "當前位置";
-            if (status === "OK" && results && results.length > 0) {
-                pickupAddress = results[0].formatted_address;
+            if (!pickupCoords) {
+                showStatus("無法獲取上車位置", "error");
+                return;
             }
-            
-            // 發送叫車訊息（簡潔版本）
-            if (liff.isInClient()) {
-                const dropoffAddress = document.getElementById('dropoffLocation').value.trim();
-                const message = `🚗 叫車資訊\n上車：${pickupAddress}\n下車：${dropoffAddress}`;
-                
-                await liff.sendMessages([
-                    {
-                        type: "text",
-                        text: message
+
+            showStatus("正在處理叫車...", "loading");
+
+            try {
+                const geocoder = new google.maps.Geocoder();
+                const latLng = new google.maps.LatLng(pickupCoords.lat, pickupCoords.lng);
+
+                geocoder.geocode({ location: latLng }, async (results, status) => {
+                    let pickupAddress = "當前位置";
+                    if (status === "OK" && results && results.length > 0) {
+                        pickupAddress = results[0].formatted_address;
                     }
-                ]);
-                
-                showStatus("叫車請求已發送！", "success");
-                
-                setTimeout(() => {
-                    liff.closeWindow();
-                }, 1500);
-            } else {
-                showStatus("請在LINE中開啟此頁面", "error");
+
+                    if (liff.isInClient()) {
+                        const dropoffAddress = document.getElementById('dropoffLocation').value.trim();
+                        const message = `🚗 叫車資訊\n上車：${pickupAddress}\n下車：${dropoffAddress}`;
+
+                        await liff.sendMessages([{ type: "text", text: message }]);
+                        showStatus("叫車請求已發送！", "success");
+
+                        setTimeout(() => { liff.closeWindow(); }, 1500);
+                    } else {
+                        showStatus("請在LINE中開啟此頁面", "error");
+                    }
+                });
+
+            } catch (error) {
+                console.error("叫車錯誤:", error);
+                showStatus("叫車失敗，請重試", "error");
             }
-        });
-        
-    } catch (error) {
-        console.error("叫車錯誤:", error);
-        showStatus("叫車失敗，請重試", "error");
-    }
-}
+        }
 
         function showStatus(message, type = "") {
             const statusDiv = document.getElementById('statusMessage');
             statusDiv.textContent = message;
             statusDiv.className = "status-message " + type;
             statusDiv.style.display = 'block';
-            
+
             if (type !== "loading") {
-                setTimeout(() => {
-                    statusDiv.style.display = 'none';
-                }, 3000);
+                setTimeout(() => { statusDiv.style.display = 'none'; }, 3000);
             }
         }
 
@@ -601,13 +563,7 @@
             document.getElementById('statusMessage').style.display = 'none';
         }
 
-        // Google Maps 初始化回調函數
-        function initMap() {
-            console.log("✅ Google Maps JavaScript API 載入完成");
-            // Google Maps API 已準備就緒，可以開始使用
-        }
-
-        // 初始化LIFF
+        // 初始化 LIFF
         initializeLiff();
     </script>
 </body>

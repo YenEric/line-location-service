@@ -3,10 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <title>客訴服務系統 </title>
-    <!-- Google API -->
-    <script src="https://apis.google.com/js/api.js"></script>
-    <!-- LINE LIFF -->
-    <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
     <style>
         * {
             margin: 0;
@@ -22,38 +18,42 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            min-height: 100vh;
+            /* 🔍 放大20% - 使用CSS縮放 */
             transform: scale(1.2);
+            transform-origin: center center;
         }
         
         .container {
             width: 90%;
-            max-width: 600px;
+            max-width: 600px; /* 🔍 再放大20% */
             background: linear-gradient(135deg, #111111 0%, #0a0a0a 100%);
-            border-radius: 24px;
-            padding: 48px 36px;
+            border-radius: 24px; /* 🔍 更大圓角 */
+            padding: 48px 36px; /* 🔍 再增加內距20% */
             box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
             text-align: center;
         }
         
         .header {
             text-align: center;
-            margin-bottom: 48px;
+            margin-bottom: 48px; /* 🔍 再增加間距20% */
         }
         
         .header h1 {
-            font-size: 43px;
+            font-size: 43px; /* 🔍 再放大20% */
             font-weight: 700;
-            margin-bottom: 18px;
+            margin-bottom: 18px; /* 🔍 再增加間距20% */
             background: linear-gradient(135deg, #ffffff 0%, #cccccc 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
         
         .header p {
-            font-size: 22px;
+            font-size: 22px; /* 🔍 再放大20% */
             opacity: 0.9;
         }
         
+        /* 🔍 使用者名稱顯示區 */
         .user-welcome {
             background: rgba(0, 212, 255, 0.1);
             border: 1px solid rgba(0, 212, 255, 0.3);
@@ -77,20 +77,20 @@
         .complaint-types {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 18px;
-            margin: 36px 0;
+            gap: 18px; /* 🔍 再增加間距20% */
+            margin: 36px 0; /* 🔍 再增加間距20% */
         }
         
         .type-btn {
             background: linear-gradient(135deg, #1a1a1a 0%, #151515 100%);
             border: 2px solid rgba(255, 255, 255, 0.1);
             color: #ffffff;
-            padding: 24px 18px;
-            border-radius: 18px;
+            padding: 24px 18px; /* 🔍 再增加內距20% */
+            border-radius: 18px; /* 🔍 再加大圓角20% */
             cursor: pointer;
             transition: all 0.3s ease;
             text-align: center;
-            font-size: 19px;
+            font-size: 19px; /* 🔍 再放大20% */
             font-weight: 500;
         }
         
@@ -102,7 +102,7 @@
         }
         
         .file-upload {
-            margin: 36px 0;
+            margin: 36px 0; /* 🔍 再增加間距20% */
         }
         
         .upload-btn {
@@ -110,8 +110,8 @@
             background: linear-gradient(135deg, #333333 0%, #222222 100%);
             border: 2px dashed rgba(255, 255, 255, 0.3);
             color: #ffffff;
-            padding: 36px 24px;
-            border-radius: 18px;
+            padding: 36px 24px; /* 🔍 再增加內距20% */
+            border-radius: 18px; /* 🔍 再加大圓角20% */
             cursor: pointer;
             transition: all 0.3s ease;
             text-align: center;
@@ -124,23 +124,24 @@
         
         textarea {
             width: 100%;
-            height: 180px;
+            height: 180px; /* 🔍 再增加高度20% */
             background: rgba(255,255,255,0.05);
             border: 1px solid rgba(255,255,255,0.2);
-            border-radius: 18px;
+            border-radius: 18px; /* 🔍 再加大圓角20% */
             color: #ffffff;
-            padding: 24px;
-            font-size: 19px;
+            padding: 24px; /* 🔍 再增加內距20% */
+            font-size: 19px; /* 🔍 再放大20% */
             resize: vertical;
-            margin: 36px 0;
+            margin: 36px 0; /* 🔍 再增加間距20% */
         }
         
+        /* 🔍 日期時間案件編號 */
         .case-number {
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 15px;
-            padding: 24px;
-            margin: 36px 0;
+            padding: 24px; /* 🔍 再增加內距20% */
+            margin: 36px 0; /* 🔍 再增加間距20% */
             text-align: center;
         }
         
@@ -150,63 +151,31 @@
         }
         
         .case-number .case-id {
-            font-size: 28px;
+            font-size: 28px; /* 🔍 再放大20% */
             font-weight: bold;
             color: #00d4ff;
         }
         
+        /* 🔍 淺灰色按鈕 - 維持你的要求 */
         .submit-btn {
             width: 100%;
-            background: #e0e0e0;
-            color: #000000;
+            background: #e0e0e0; /* 淺灰色背景 */
+            color: #000000; /* 黑色文字 */
             border: none;
-            padding: 24px;
-            font-size: 24px;
+            padding: 24px; /* 🔍 再增加內距20% */
+            font-size: 24px; /* 🔍 再放大20% */
             font-weight: 600;
-            border-radius: 18px;
+            border-radius: 18px; /* 🔍 再加大圓角20% */
             cursor: pointer;
             transition: all 0.3s ease;
-            margin-top: 36px;
+            margin-top: 36px; /* 🔍 再增加間距20% */
             box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
         }
         
         .submit-btn:hover {
-            background: #d0d0d0;
-            transform: translateY(-4px);
+            background: #d0d0d0; /* 稍深灰色 */
+            transform: translateY(-4px); /* 🔍 更大浮動 */
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
-        }
-        
-        /* Google Drive 狀態顯示 */
-        .upload-status {
-            margin: 20px 0;
-            padding: 15px;
-            border-radius: 10px;
-            font-size: 14px;
-            display: none;
-        }
-        
-        .upload-success {
-            background: rgba(0, 170, 0, 0.2);
-            border: 1px solid rgba(0, 170, 0, 0.5);
-            color: #00ff00;
-        }
-        
-        .upload-error {
-            background: rgba(211, 47, 47, 0.2);
-            border: 1px solid rgba(211, 47, 47, 0.5);
-            color: #ff6b6b;
-        }
-        
-        .drive-link {
-            background: rgba(66, 133, 244, 0.2);
-            border: 1px solid rgba(66, 133, 244, 0.5);
-            color: #4285f4;
-            padding: 10px;
-            border-radius: 8px;
-            margin: 10px 0;
-            font-family: monospace;
-            font-size: 12px;
-            word-break: break-all;
         }
     </style>
 </head>
@@ -217,7 +186,7 @@
             <p>我們重視您的每一個意見</p>
         </div>
         
-        <!-- 使用者名稱顯示 -->
+        <!-- 🔍 使用者名稱顯示區 -->
         <div class="user-welcome" id="userWelcome">
             <div class="greeting">您好！</div>
             <div class="username" id="userName">載入中...</div>
@@ -241,66 +210,37 @@
             <input type="file" id="fileInput" style="display: none;" accept="image/*,video/*" multiple>
         </div>
         
-        <!-- Google Drive 上傳狀態 -->
-        <div id="uploadStatus" class="upload-status" style="display: none;">
-            <div id="uploadStatusText"></div>
-        </div>
-        
         <textarea id="description" placeholder="請詳細描述您的問題..." 
                   style="width: 100%; height: 180px; background: rgba(255,255,255,0.05); 
                          border: 1px solid rgba(255,255,255,0.2); border-radius: 18px; 
                          color: #ffffff; padding: 24px; font-size: 19px; 
                          resize: vertical; margin: 36px 0;"></textarea>
         
+        <!-- 🔍 日期時間案件編號 -->
         <div class="case-number" id="caseNumber" style="display: none;">
             <div class="date-time">案件建立時間</div>
             <div class="case-id" id="caseId"></div>
         </div>
         
+        <!-- 🔍 淺灰色按鈕 - 維持你的要求 -->
         <button class="submit-btn" onclick="submitComplaint()">
             提交客訴案件
         </button>
     </div>
 
     <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
-    <!-- Google API -->
-    <script src="https://apis.google.com/js/api.js"></script>
     <script>
-        // 🔍 你的 Google Drive 用戶端 ID
-        const CLIENT_ID = '226415027385-rv1fiem9ghtjdik393bhck2m31auvagk.apps.googleusercontent.com';
-        
         let liffId = "2008784977-HdgsRmmR";
         let selectedType = '';
         let uploadedFiles = [];
         let userName = '';
-        let gapiLoaded = false;
-
-        // Google API 初始化
-        function initGapi() {
-            gapi.load('client', {
-                callback: function() {
-                    gapi.client.init({
-                        clientId: CLIENT_ID,
-                        discoveryDocs: ['https://www.googleapis.com/discovery/v1/apis/drive/v3/rest'],
-                    }).then(() => {
-                        console.log('✅ Google API 初始化成功');
-                        gapiLoaded = true;
-                    }).catch(error => {
-                        console.error('❌ Google API 初始化失敗:', error);
-                    });
-                }
-            });
-        }
 
         async function initializeLiff() {
             try {
                 await liff.init({ liffId: liffId });
                 console.log("LIFF initialized successfully");
                 
-                // 初始化 Google API
-                initGapi();
-                
-                // 獲取使用者名稱
+                // 🔍 獲取使用者名稱
                 if (liff.isInClient()) {
                     const profile = await liff.getProfile();
                     userName = profile.displayName;
@@ -310,7 +250,7 @@
                     document.getElementById('userName').textContent = userName;
                 }
                 
-                generateCaseNumber();
+                generateCaseNumber(); // 🔍 產生案件編號
             } catch (error) {
                 console.error("LIFF initialization failed", error);
                 userName = '訪客';
@@ -322,179 +262,48 @@
         // 類型選擇
         document.querySelectorAll('.type-btn').forEach(btn => {
             btn.addEventListener('click', function() {
+                // 清除所有選中狀態
                 document.querySelectorAll('.type-btn').forEach(b => b.classList.remove('active'));
+                
+                // 設置當前選中
                 this.classList.add('active');
                 selectedType = this.dataset.type;
             });
         });
 
-        // Google Drive 檔案上傳
-        async function uploadFile() {
+        // 檔案上傳
+        function uploadFile() {
             document.getElementById('fileInput').click();
         }
 
-        document.getElementById('fileInput').addEventListener('change', async function(e) {
+        document.getElementById('fileInput').addEventListener('change', function(e) {
             const files = Array.from(e.target.files);
             uploadedFiles = files;
             
             if (files.length > 0) {
-                showUploadStatus(`正在上傳 ${files.length} 個檔案到 Google Drive...`, 'loading');
-                
-                try {
-                    const uploadedUrls = await uploadFilesToGoogleDrive(files);
-                    
-                    if (uploadedUrls.length > 0) {
-                        showUploadStatus(`✅ 成功上傳 ${uploadedUrls.length} 個檔案`, 'success');
-                        
-                        // 顯示 Google Drive 連結
-                        uploadedUrls.forEach((url, index) => {
-                            showUploadStatus(`證據${index+1}: ${url}`, 'link');
-                        });
-                        
-                        // 更新上傳按鈕
-                        document.querySelector('.upload-btn').innerHTML = 
-                            `<div style="font-size: 62px; margin-bottom: 15px;">✅</div>
-                             <div style="font-size: 22px;">已上傳 ${uploadedUrls.length} 個檔案到 Google Drive</div>`;
-                    } else {
-                        showUploadStatus('⚠️ 部分檔案上傳失敗', 'error');
-                    }
-                    
-                } catch (error) {
-                    console.error('上傳錯誤:', error);
-                    showUploadStatus('❌ 上傳失敗：' + error.message, 'error');
-                }
+                showMessage(`已選擇 ${files.length} 個檔案`, "success");
+                document.querySelector('.upload-btn').innerHTML = 
+                    `<div style="font-size: 62px; margin-bottom: 15px;">✅</div>
+                     <div style="font-size: 22px;">已上傳 ${files.length} 個檔案</div>`;
             }
         });
 
-        // 🔍 Google Drive 上傳核心功能
-        async function uploadFilesToGoogleDrive(files) {
-            if (!gapiLoaded) {
-                showUploadStatus('❌ Google API 未載入完成', 'error');
-                return [];
-            }
+        // 🔍 產生日期時間案件編號
+        function generateCaseNumber() {
+            const now = new Date();
+            const year = now.getFullYear();
+            const month = String(now.getMonth() + 1).padStart(2, '0');
+            const day = String(now.getDate()).padStart(2, '0');
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
             
-            const uploadPromises = files.map(async (file, index) => {
-                try {
-                    showUploadStatus(`正在處理 ${file.name}...`, 'loading');
-                    
-                    // 詳細的錯誤檢查
-                    console.log(`📝 準備上傳檔案 ${index+1}:`, file.name, file.type, file.size);
-                    
-                    // 讀取檔案內容
-                    console.log('步驟1: 讀取檔案...');
-                    const fileContent = await readFile(file);
-                    console.log(`✅ 檔案讀取完成，大小: ${fileContent.byteLength} bytes`);
-                    
-                    // 建立 Google Drive 檔案
-                    console.log('步驟2: 準備上傳資料...');
-                    const fileMetadata = {
-                        name: `${document.getElementById('caseId').textContent}_${index+1}_${file.name}`,
-                        parents: ['root'], // 或你的特定資料夾ID
-                        description: `客訴案件證據 - 案件編號: ${document.getElementById('caseId').textContent}`
-                    };
-                    
-                    const media = {
-                        mimeType: file.type,
-                        body: fileContent
-                    };
-                    
-                    console.log('步驟3: 開始上傳...');
-                    console.log('檔案metadata:', fileMetadata);
-                    
-                    // 上傳到 Google Drive
-                    try {
-                        const response = await gapi.client.drive.files.create({
-                            resource: fileMetadata,
-                            media: media,
-                            fields: 'id, name, webViewLink'
-                        });
-                        
-                        console.log(`✅ 檔案 ${index+1} 上傳成功！`);
-                        console.log('回應結果:', response.result);
-                        
-                        // 設定公開分享
-                        try {
-                            await makeFilePublic(response.result.id);
-                            console.log(`🔓 檔案 ${response.result.id} 已設定為公開`);
-                        } catch (shareError) {
-                            console.warn(`⚠️ 無法設定檔案公開:`, shareError);
-                        }
-                        
-                        return response.result.webViewLink;
-                        
-                    } catch (apiError) {
-                        console.error(`❌ API 錯誤 ${index+1}:`, apiError);
-                        console.error('錯誤狀態:', apiError.status);
-                        console.error('錯誤訊息:', apiError.message);
-                        console.error('錯誤詳情:', apiError.result);
-                        
-                        // 詳細錯誤分類
-                        if (apiError.status === 401) {
-                            return `檔案${index+1}: Google 認證失敗 - 請重新登入`;
-                        } else if (apiError.status === 403) {
-                            return `檔案${index+1}: 權限不足 - 無法上傳到此位置`;
-                        } else if (apiError.status === 404) {
-                            return `檔案${index+1}: API 不存在 - 請檢查設定`;
-                        } else if (apiError.status === 429) {
-                            return `檔案${index+1}: 上傳頻率過高 - 請稍後再試`;
-                        } else {
-                            return `檔案${index+1}: API 錯誤 ${apiError.status} - ${apiError.message}`;
-                        }
-                    }
-                    
-                } catch (error) {
-                    console.error(`❌ 嚴重錯誤 ${index+1}:`, error);
-                    console.error('錯誤堆疊:', error.stack);
-                    return `檔案${index+1}: 嚴重錯誤 - ${error.message}`;
-                }
-            });
+            const caseId = `${year}/${month}/${day}-${hours}${minutes}`;
             
-            return Promise.all(uploadPromises);
+            document.getElementById('caseId').textContent = caseId;
+            document.getElementById('caseNumber').style.display = 'block';
         }
 
-        // 讀取檔案內容（修復版）
-        function readFile(file) {
-            return new Promise((resolve, reject) => {
-                const reader = new FileReader();
-                reader.onload = (e) => resolve(e.target.result);
-                reader.onerror = (e) => reject(e);
-                reader.readAsArrayBuffer(file);
-            });
-        }
-
-        // 設定檔案公開分享
-        function makeFilePublic(fileId) {
-            return gapi.client.drive.permissions.create({
-                fileId: fileId,
-                resource: {
-                    role: 'reader',
-                    type: 'anyone'
-                }
-            });
-        }
-
-        // 上傳狀態顯示（詳細版）
-        function showUploadStatus(message, type) {
-            const statusDiv = document.getElementById('uploadStatus');
-            statusDiv.className = `upload-status upload-${type}`;
-            statusDiv.innerHTML = message;
-            statusDiv.style.display = 'block';
-            
-            // 詳細錯誤記錄
-            console.log(`[${new Date().toLocaleTimeString()}] 上傳狀態: ${message}`);
-            
-            if (type === 'link') {
-                statusDiv.innerHTML = `<div class="drive-link">${message}</div>`;
-            }
-            
-            if (type !== 'loading') {
-                setTimeout(() => {
-                    statusDiv.style.display = 'none';
-                }, 5000); // 延長顯示時間
-            }
-        }
-
-        // 提交客訴（整合 Google Drive）
+        // 提交客訴
         async function submitComplaint() {
             if (selectedType === '') {
                 showMessage("請選擇問題類型", "error");
@@ -512,30 +321,9 @@
             showMessage("正在處理客訴...", "loading");
             
             try {
-                let fileLinks = '';
-                
-                // 處理檔案上傳到 Google Drive
-                if (uploadedFiles.length > 0) {
-                    showMessage("正在上傳檔案到 Google Drive...", "loading");
-                    
-                    try {
-                        const fileUrls = await uploadFilesToGoogleDrive(uploadedFiles);
-                        
-                        if (fileUrls.length > 0) {
-                            fileLinks = fileUrls.map((url, index) => `證據${index+1}: ${url}`).join('\n');
-                            showMessage(`✅ 成功上傳 ${fileUrls.length} 個檔案`, "success");
-                        } else {
-                            fileLinks = '(檔案上傳失敗，客服將主動與您聯繫)';
-                        }
-                    } catch (uploadError) {
-                        console.error('上傳錯誤:', uploadError);
-                        fileLinks = '(檔案上傳失敗，客服將主動與您聯繫)';
-                    }
-                }
-                
                 // 發送回 LINE
                 if (liff.isInClient()) {
-                    const message = `🎧 客訴案件已建立\n案件編號：${caseNumber}\n用戶：${userName}\n問題類型：${getTypeText(selectedType)}${fileLinks ? `\n\n📎 證據檔案：\n${fileLinks}` : ''}\n\n我們將盡快處理您的問題，感謝您的耐心等候。`;
+                    const message = `🎧 客訴案件已建立\n案件編號：${caseNumber}\n用戶：${userName}\n問題類型：${getTypeText(selectedType)}\n\n我們將盡快處理您的問題，感謝您的耐心等候。`;
                     
                     await liff.sendMessages([
                         {

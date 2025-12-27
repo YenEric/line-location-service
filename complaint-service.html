@@ -263,60 +263,7 @@
                 generateCaseNumber();
             }
         }
- // 🔍 自動填入結構化資訊
-        autoFillStructuredInfo();
-        
-    } catch (error) {
-        console.error("LIFF initialization failed", error);
-        userName = '訪客';
-        document.getElementById('userName').textContent = userName;
-        generateCaseNumber();
-        autoFillStructuredInfo(); // 🔍 容錯處理
-    }
-}
 
-// 🔍 新的自動填入函數
-function autoFillStructuredInfo() {
-    const textarea = document.getElementById('description');
-    
-    // 🔍 預設結構化格式
-    const structuredTemplate = `請提供以下資訊：
-1.乘車日期：
-2.上車地址：
-3.司機車號：
-4.詳細描述：`;
-    
-    // 🔍 設定預設值
-    textarea.value = structuredTemplate;
-    
-    // 🔍 設定更好的游標位置（在第一項後面）
-    setTimeout(() => {
-        // 計算游標位置（在"1.乘車日期："後面）
-        const cursorPosition = structuredTemplate.indexOf('1.乘車日期：') + '1.乘車日期：'.length;
-        textarea.setSelectionRange(cursorPosition, cursorPosition);
-        textarea.focus();
-    }, 100);
-}
-
-// 🔍 智能游標定位 - 更貼心的使用者體驗
-function setupSmartCursor() {
-    const textarea = document.getElementById('description');
-    
-    textarea.addEventListener('focus', function() {
-        const text = this.value;
-        const lines = text.split('\n');
-        
-        // 🔍 找出第一個空白項目
-        for (let i = 0; i < lines.length; i++) {
-            if (lines[i].includes('：') && !lines[i].split('：')[1].trim()) {
-                // 找到空白項目，設定游標
-                const lineStart = text.split('\n').slice(0, i).join('\n').length + lines[i].indexOf('：') + 1;
-                this.setSelectionRange(lineStart, lineStart);
-                break;
-            }
-        }
-    });
-}
         // 類型選擇
         document.querySelectorAll('.type-btn').forEach(btn => {
             btn.addEventListener('click', function() {

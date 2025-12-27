@@ -506,93 +506,115 @@
         }
 
         // 🔍 計算車資 + 顯示路線
-        async function calculateFare() {
-            const dropoffAddress = document.getElementById('dropoffLocation').value.trim();
-            
-            if (!dropoffAddress) {
-                showMessage("請輸入下車地址", "error");
-                return;
-            }
-            
-            if (!pickupCoords) {
-                showMessage("上車位置獲取中，請稍候", "error");
-                return;
-            }
-            
-            const button = document.getElementById('calculateBtn');
-            const btnText = document.getElementById('btnText');
-            
-            btnText.innerHTML = '<span class="loading"></span>計算中...';
-            button.disabled = true;
-            
-            try {
-                console.log("🌐 開始地理編碼...");
+       async function calculateFare() {
+    const dropoffAddress = document.getElementById('dropoffLocation').value.trim();
+    
+    if (!dropoffAddress) {
+        showStatus("請輸入下車地址", "error");
+        return;
+    }
+    
+    if (!pickupCoords) {
+        showStatus("請先獲取上車位置", "error");
+        return;
+    }
+    
+    const button = document.getElementById('calculateBtn');
+    const btnText = document.getElementById('btnText');
+    
+    btnText.innerHTML = '<span class="loading"></span>計算中...';
+    button.disabled = true;
+    
+    try {
+        // 使用 Google Maps Geocoder
+        const geocoder = new google.maps.Geocoder();
+        
+        // 地理編碼下車地址
+        geocoder.geocode({ address: dropoffAddress }, (results, status) => {
+            if (status === "OK" && results && results.length > 0) {
+                const location = results[0].geometry.location;
+                dropoffCoords = {
+                    lat: location.lat(),
+                    lng: location.lng()
+                };
                 
-                // 使用 Google Maps Geocoder
-                const geocoder = new google.maps.Geocoder();
+                // 使用 DirectionsService 計算路線
+                const directionsService = new google.maps.DirectionsService();
                 
-                // 地理編碼下車地址
-                geocoder.geocode({ address: dropoffAddress }, (results, status) => {
-                    if (status === "OK" && results && results.length > 0) {
-                        const location = results[0].geometry.location;
-                        dropoffCoords = {
-                            lat: location.lat(),
-                            lng: location.lng()
-                        };
+                const request = {
+                    origin: new google.maps.LatLng(pickupCoords.lat, pickupCoords.lng),
+                    destination: new google.maps.LatLng(dropoffCoords.lat, dropoffCoords.lng),
+                    travelMode: google.maps.TravelMode.DRIVING,
+                    language: 'zh-TW'
+                };
+                
+                directionsService.route(request, (result, status) => {
+                    if (status === "OK" && result.routes && result.routes.length > 0) {
+                        const route = result.routes[0];
+                        const leg = route.legs[0];
                         
-                        console.log("✅ 下車座標:", dropoffCoords);
+                        calculatedDistance = leg.distance.value / 1000; // 公里
+                        calculatedDuration = leg.duration.value / 60;   // 分鐘
                         
-                        // 使用 DirectionsService 計算路線
-                        const directionsService = new google.maps.DirectionsService();
+                        // 🔍 新增：顯示詳細路線資訊
+                        const routeInfo = leg;
+                        const steps = leg.steps;
+                        let routeDescription = "";
                         
-                        const request = {
-                            origin: new google.maps.LatLng(pickupCoords.lat, pickupCoords.lng),
-                            destination: new google.maps.LatLng(dropoffCoords.lat, dropoffCoords.lng),
-                            travelMode: google.maps.TravelMode.DRIVING,
-                            language: 'zh-TW',
-                            provideRouteAlternatives: false
-                        };
-                        
-                        console.log("🌐 開始路線規劃...");
-                        
-                        directionsService.route(request, (result, status) => {
-                            console.log("路線規劃狀態:", status);
+                        // 建立路線描述
+                        if (steps && steps.length > 0) {
+                            // 顯示前3個主要轉向點
+                            const mainSteps = steps.slice(0, Math.min(3, steps.length));
+                            routeDescription = mainSteps.map((step, index) => {
+                                const instruction = step.instructions.replace(/<[^>]*>/g, ''); // 移除HTML標籤
+                                return `${index + 1}. ${instruction}`;
+                            }).join('\n');
                             
-                            if (status === "OK" && result.routes && result.routes.length > 0) {
-                                const route = result.routes[0];
-                                const leg = route.legs[0];
-                                
-                                // 顯示路線在地圖上
-                                directionsRenderer.setDirections(result);
-                                
-                                // 獲取路線資訊
-                                calculatedDistance = leg.distance.value / 1000; // 公里
-                                calculatedDuration = leg.duration.value / 60;   // 分鐘
-                                
-                                console.log(`✅ 距離: ${calculatedDistance.toFixed(1)}km, 時間: ${Math.round(calculatedDuration)}分鐘`);
-                                
-                                // 顯示路線資訊
-                                displayRouteInfo(calculatedDistance, calculatedDuration);
-                                
-                                // 計算車資
-                                baseFare = calculateBaseFare(calculatedDistance, calculatedDuration);
-                                console.log(`✅ 車資計算: 基礎$${baseFare.base}, 範圍$${baseFare.min}-$${baseFare.max}`);
-                                
-                                // 顯示價格
-                                displayPriceInfo(baseFare, calculatedDistance, calculatedDuration);
-                                
-                                // 顯示確認按鈕
-                                document.getElementById('confirmBtn').classList.remove('hidden');
-                                
-                            } else {
-                                logDebug(`❌ 路線規劃失敗: ${status}`);
-                                showMessage("無法規劃路線", "error");
+                            if (steps.length > 3) {
+                                routeDescription += `\n... 還有${steps.length - 3}個轉向點`;
                             }
-                            
-                            // 恢復按鈕狀態
-                            btnText.textContent = "估算車資";
-                            button.disabled = false;
-                        });
+                        }
+                        
+                        // 🔍 新增：顯示詳細路線資訊在介面上
+                        document.getElementById('routeInfo').innerHTML = `
+                            距離：<span id="distance">${calculatedDistance.toFixed(1)}</span>公里 | 
+                            預估時間：<span id="duration">${Math.round(calculatedDuration)}</span>分鐘<br>
+                            <small style="color: #888888; font-size: 12px;">${routeDescription}</small>
+                        `;
+                        
+                        // 計算車資
+                        baseFare = calculateBaseFare(calculatedDistance, calculatedDuration);
+                        
+                        // 顯示結果
+                        displayFareResult(baseFare, calculatedDistance, calculatedDuration);
+                        
+                    } else {
+                        showStatus("無法規劃路線", "error");
+                    }
+                    
+                    // 恢復按鈕狀態
+                    btnText.textContent = "估算車資";
+                    button.disabled = false;
+                });
+                
+            } else {
+                showStatus("找不到下車地點", "error");
+                
+                // 恢復按鈕狀態
+                btnText.textContent = "估算車資";
+                button.disabled = false;
+            }
+        });
+        
+    } catch (error) {
+        console.error("計算錯誤:", error);
+        showStatus("計算失敗，請重試", "error");
+        
+        // 恢復按鈕狀態
+        btnText.textContent = "估算車資";
+        button.disabled = false;
+    }
+}
                         
                     } else {
                         logDebug(`❌ 地理編碼失敗: ${status}`);

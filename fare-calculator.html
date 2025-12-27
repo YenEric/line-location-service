@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+    <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>車資估算系統</title>
+    <title>車資估算</title>
     <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
     <!-- Google Maps JavaScript API -->
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCMAZg7iKcByv3cZRevkdrVOFEFrGr8y1c&libraries=places&callback=initMap" async defer></script>
@@ -19,156 +19,124 @@
             background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
             min-height: 100vh;
             color: #ffffff;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            transform: scale(1.2);
-            transform-origin: center center;
+            padding: 20px;
         }
         
         .container {
-            width: 90%;
-            max-width: 600px;
-            background: linear-gradient(135deg, #111111 0%, #0a0a1a 100%);
-            border-radius: 24px;
-            padding: 48px 36px;
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
-            text-align: center;
+            max-width: 400px;
+            margin: 0 auto;
+            background: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
+            overflow: hidden;
         }
         
         .header {
+            background: linear-gradient(135deg, #000000 0%, #333333 100%);
+            color: white;
+            padding: 30px 25px;
             text-align: center;
-            margin-bottom: 48px;
         }
         
         .header h1 {
-            font-size: 43px;
-            font-weight: 700;
-            margin-bottom: 18px;
-            background: linear-gradient(135deg, #ffffff 0%, #cccccc 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        
-        .header p {
-            font-size: 22px;
-            opacity: 0.9;
-        }
-        
-        /* 🔍 使用者名稱顯示區 - 優化版 */
-        .user-welcome {
-            background: rgba(0, 212, 255, 0.1);
-            border: 1px solid rgba(0, 212, 255, 0.3);
-            border-radius: 15px;
-            padding: 20px;
-            margin: 30px 0;
-            text-align: center;
-            min-height: 60px; /* 🔍 防止跳動 */
-        }
-        
-        .user-welcome .greeting {
-            font-size: 18px;
+            font-size: 24px;
+            font-weight: 600;
             margin-bottom: 8px;
         }
         
-        .user-welcome .username {
-            font-size: 24px;
-            font-weight: bold;
-            color: #00d4ff;
+        .header p {
+            font-size: 14px;
+            opacity: 0.9;
         }
         
-        /* 🔍 位置顯示區 - 優化版 */
+        .content {
+            padding: 30px 25px;
+        }
+        
         .location-section {
-            margin: 36px 0;
+            margin-bottom: 25px;
         }
         
         .location-label {
-            font-size: 18px;
-            color: #cccccc;
-            margin-bottom: 15px;
+            font-size: 14px;
+            color: #666666;
+            margin-bottom: 8px;
             font-weight: 500;
         }
         
-        .location-btn {
+       .location-btn {
+    width: 100%;
+    background: linear-gradient(135deg, #000000 0%, #333333 100%);
+    color: white;
+    border: none;
+    padding: 16px 20px;
+    font-size: 16px;
+    font-weight: 500;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.location-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+.location-btn:active {
+    transform: translateY(0);
+}
+
+.location-btn:disabled {
+    background: #cccccc;
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+.location-btn.loading {
+    background: #cccccc;
+    cursor: not-allowed;
+}
+        
+        .location-input {
             width: 100%;
-            background: linear-gradient(135deg, #000000 0%, #333333 100%);
-            color: white;
-            border: none;
-            padding: 20px 24px;
-            font-size: 19px;
-            font-weight: 500;
-            border-radius: 18px;
-            cursor: pointer;
+            padding: 16px 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            font-size: 16px;
             transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
-            min-height: 60px; /* 🔍 確保點擊區域足夠大 */
+            background: #f8f8f8;
         }
         
-        .location-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
-        }
-        
-        .location-btn:active {
-            transform: translateY(0);
-        }
-        
-        .location-btn:disabled {
-            background: #cccccc;
-            cursor: not-allowed;
-            box-shadow: none;
-        }
-        
-        .location-btn.loading {
-            background: #cccccc;
-            cursor: not-allowed;
+        .location-input:focus {
+            outline: none;
+            border-color: #000000;
+            background: #ffffff;
+            box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1);
         }
         
         .location-display {
             background: #f0f0f0;
-            padding: 20px 24px;
-            border-radius: 18px;
-            font-size: 18px;
+            padding: 16px 20px;
+            border-radius: 12px;
+            font-size: 16px;
             color: #333333;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             position: relative;
-            padding-left: 50px;
-            min-height: 60px; /* 🔍 確保顯示區域足夠大 */
-            display: flex;
-            align-items: center;
+            padding-left: 45px;
         }
         
         .location-display::before {
             content: "📍";
             position: absolute;
-            left: 20px;
+            left: 15px;
             top: 50%;
             transform: translateY(-50%);
-            font-size: 24px;
-        }
-        
-        .location-input {
-            width: 100%;
-            background: rgba(255,255,255,0.05);
-            border: 2px solid rgba(255,255,255,0.2);
-            border-radius: 18px;
-            color: #ffffff;
-            padding: 18px 24px;
-            font-size: 18px;
-            transition: all 0.3s ease;
-            min-height: 60px; /* 🔍 確保輸入區域足夠大 */
-        }
-        
-        .location-input:focus {
-            outline: none;
-            border-color: #00d4ff;
-            background: rgba(255,255,255,0.08);
-            box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.2);
+            font-size: 20px;
         }
         
         .calculate-btn {
@@ -176,19 +144,19 @@
             background: linear-gradient(135deg, #000000 0%, #333333 100%);
             color: white;
             border: none;
-            padding: 24px;
-            font-size: 24px;
+            padding: 18px;
+            font-size: 18px;
             font-weight: 600;
-            border-radius: 18px;
+            border-radius: 12px;
             cursor: pointer;
             transition: all 0.3s ease;
-            margin-top: 36px;
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+            margin-top: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
         }
         
         .calculate-btn:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
         }
         
         .calculate-btn:disabled {
@@ -198,78 +166,73 @@
             box-shadow: none;
         }
         
-        .calculate-btn.loading {
-            background: #cccccc;
-            cursor: not-allowed;
-        }
-        
         .fare-result {
-            margin-top: 36px;
-            padding: 30px 25px;
+            margin-top: 25px;
+            padding: 25px;
             background: linear-gradient(135deg, #f8f8f8 0%, #ffffff 100%);
-            border-radius: 18px;
+            border-radius: 15px;
             text-align: center;
             display: none;
             border: 1px solid #e0e0e0;
         }
         
         .fare-amount {
-            font-size: 42px; /* 🔍 放大價格顯示 */
+            font-size: 36px;
             font-weight: 700;
             color: #000000;
-            margin-bottom: 15px;
+            margin-bottom: 10px;
         }
         
         .fare-range {
-            font-size: 16px; /* 🔍 放大範圍顯示 */
+            font-size: 14px;
             color: #666666;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
         }
         
         .route-info {
-            font-size: 14px; /* 🔍 放大路線資訊 */
+            font-size: 13px;
             color: #888888;
-            margin-bottom: 25px;
-            line-height: 1.6;
+            margin-bottom: 20px;
+            line-height: 1.5;
         }
         
-        .confirm-btn {
-            width: 100%;
-            background: #e0e0e0; /* 淺灰色背景 */
-            color: #000000; /* 黑色文字 */
-            border: none;
-            padding: 24px;
-            font-size: 24px; /* 🔍 放大按鈕文字 */
-            font-weight: 600;
-            border-radius: 18px; /* 🔍 更大圓角 */
-            cursor: pointer;
-            transition: all 0.3s ease;
-            margin-top: 36px; /* 🔍 更大間距 */
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
-        }
-        
-        .confirm-btn:hover {
-            background: #d0d0d0; /* 稍深灰色 */
-            transform: translateY(-4px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
-        }
-        
-        .confirm-btn:active {
-            transform: translateY(0);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
-        }
-        
-        .confirm-btn:disabled {
-            background: #f0f0f0;
-            color: #999999;
-            border-color: #e0e0e0;
-            cursor: not-allowed;
-        }
+       .confirm-btn {
+    width: 100%;
+    background: #ffffff;
+    color: #000000;
+    border: 2px solid #d0d0d0;
+    padding: 18px;
+    font-size: 18px;
+    font-weight: 600;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.confirm-btn:hover {
+    background: #f8f8f8;
+    border-color: #b0b0b0;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.confirm-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.confirm-btn:disabled {
+    background: #f0f0f0;
+    color: #999999;
+    border-color: #e0e0e0;
+    cursor: not-allowed;
+}
         
         .loading {
             display: inline-block;
-            width: 24px; /* 🔍 更大載入動畫 */
-            height: 24px;
+            width: 20px;
+            height: 20px;
             border: 3px solid #f3f3f3;
             border-top: 3px solid #000000;
             border-radius: 50%;
@@ -485,7 +448,7 @@
                             lng: location.lng()
                         };
                         
-                        // 使用 DirectionsService 計算路線
+                        // 使用 DirectionsService
                         const directionsService = new google.maps.DirectionsService();
                         
                         const request = {
@@ -502,32 +465,6 @@
                                 
                                 calculatedDistance = leg.distance.value / 1000; // 公里
                                 calculatedDuration = leg.duration.value / 60;   // 分鐘
-                                
-                                // 🔍 新增：顯示詳細路線資訊
-                                const routeInfo = leg;
-                                const steps = leg.steps;
-                                let routeDescription = "";
-                                
-                                // 建立路線描述
-                                if (steps && steps.length > 0) {
-                                    // 顯示前3個主要轉向點
-                                    const mainSteps = steps.slice(0, Math.min(3, steps.length));
-                                    routeDescription = mainSteps.map((step, index) => {
-                                        const instruction = step.instructions.replace(/<[^>]*>/g, ''); // 移除HTML標籤
-                                        return `${index + 1}. ${instruction}`;
-                                    }).join('\n');
-                                    
-                                    if (steps.length > 3) {
-                                        routeDescription += `\n... 還有${steps.length - 3}個轉向點`;
-                                    }
-                                }
-                                
-                                // 🔍 新增：顯示詳細路線資訊在介面上
-                                document.getElementById('routeInfo').innerHTML = `
-                                    距離：<span id="distance">${calculatedDistance.toFixed(1)}</span>公里 | 
-                                    預估時間：<span id="duration">${Math.round(calculatedDuration)}</span>分鐘<br>
-                                    <small style="color: #888888; font-size: 12px;">${routeDescription}</small>
-                                `;
                                 
                                 // 計算車資
                                 baseFare = calculateBaseFare(calculatedDistance, calculatedDuration);
@@ -594,7 +531,7 @@
             document.getElementById('fareAmount').textContent = `$${fareData.base}`;
             document.getElementById('fareRange').textContent = `浮動範圍 $${fareData.min} - $${fareData.max}`;
             document.getElementById('distance').textContent = distance.toFixed(1);
-            document.getElementById('duration').textContent = Math.round(calculatedDuration);
+            document.getElementById('duration').textContent = Math.round(duration);
             
             document.getElementById('fareResult').style.display = 'block';
             hideStatus();
@@ -626,26 +563,26 @@
                 
                 await liff.sendMessages([
                     {
-                            type: "text",
-                            text: message
-                        }
-                    ]);
-                    
-                    showStatus("叫車請求已發送！", "success");
-                    
-                    setTimeout(() => {
-                        liff.closeWindow();
-                    }, 2000);
-                } else {
-                    showStatus("請在LINE中開啟此頁面", "error");
-                }
-            });
-            
-        } catch (error) {
-            console.error("叫車錯誤:", error);
-            showStatus("叫車失敗，請重試", "error");
-        }
+                        type: "text",
+                        text: message
+                    }
+                ]);
+                
+                showStatus("叫車請求已發送！", "success");
+                
+                setTimeout(() => {
+                    liff.closeWindow();
+                }, 1500);
+            } else {
+                showStatus("請在LINE中開啟此頁面", "error");
+            }
+        });
+        
+    } catch (error) {
+        console.error("叫車錯誤:", error);
+        showStatus("叫車失敗，請重試", "error");
     }
+}
 
         function showStatus(message, type = "") {
             const statusDiv = document.getElementById('statusMessage');

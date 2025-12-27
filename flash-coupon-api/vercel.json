@@ -1,0 +1,8 @@
+{
+  "functions": {
+    "index.js": { "maxDuration": 10 }
+  },
+  "routes": [
+    { "src": "/(.*)", "dest": "/index.js" }
+  ]
+}

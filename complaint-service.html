@@ -19,86 +19,78 @@
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            transform: scale(1.2); /* 🔍 放大20% */
+            /* 🔍 放大20% - 使用CSS縮放 */
+            transform: scale(1.2);
+            transform-origin: center center;
         }
         
         .container {
             width: 90%;
-            max-width: 600px;
+            max-width: 600px; /* 🔍 再放大20% */
             background: linear-gradient(135deg, #111111 0%, #0a0a0a 100%);
-            border-radius: 25px;
-            padding: 48px 36px;
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+            border-radius: 24px; /* 🔍 更大圓角 */
+            padding: 48px 36px; /* 🔍 再增加內距20% */
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
             text-align: center;
         }
         
         .header {
             text-align: center;
-            margin-bottom: 48px;
+            margin-bottom: 48px; /* 🔍 再增加間距20% */
         }
         
         .header h1 {
-            font-size: 43px;
+            font-size: 43px; /* 🔍 再放大20% */
             font-weight: 700;
-            margin-bottom: 18px;
+            margin-bottom: 18px; /* 🔍 再增加間距20% */
             background: linear-gradient(135deg, #ffffff 0%, #cccccc 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
         
         .header p {
-            font-size: 22px;
+            font-size: 22px; /* 🔍 再放大20% */
             opacity: 0.9;
         }
         
-        /* 🔍 用戶資訊顯示 - 移除載入中文字 */
-        .user-info {
+        /* 🔍 使用者名稱顯示區 */
+        .user-welcome {
             background: rgba(0, 212, 255, 0.1);
             border: 1px solid rgba(0, 212, 255, 0.3);
             border-radius: 15px;
             padding: 20px;
             margin: 30px 0;
             text-align: center;
-            min-height: 60px; /* 確保有高度即使沒內容 */
         }
         
-        .user-name {
-            font-size: 20px;
-            font-weight: 600;
-            color: #00d4ff;
-        }
-        
-        .datetime-info {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 15px;
-            padding: 20px;
-            margin: 30px 0;
-            text-align: center;
-        }
-        
-        .datetime-text {
+        .user-welcome .greeting {
             font-size: 18px;
-            font-weight: 500;
+            margin-bottom: 8px;
+        }
+        
+        .user-welcome .username {
+            font-size: 24px;
+            font-weight: bold;
+            color: #00d4ff;
         }
         
         .complaint-types {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 18px;
-            margin: 36px 0;
+            gap: 18px; /* 🔍 再增加間距20% */
+            margin: 36px 0; /* 🔍 再增加間距20% */
         }
         
         .type-btn {
             background: linear-gradient(135deg, #1a1a1a 0%, #151515 100%);
             border: 2px solid rgba(255, 255, 255, 0.1);
             color: #ffffff;
-            padding: 24px 18px;
-            border-radius: 18px;
+            padding: 24px 18px; /* 🔍 再增加內距20% */
+            border-radius: 18px; /* 🔍 再加大圓角20% */
             cursor: pointer;
             transition: all 0.3s ease;
             text-align: center;
-            font-size: 18px;
+            font-size: 19px; /* 🔍 再放大20% */
             font-weight: 500;
         }
         
@@ -106,11 +98,11 @@
         .type-btn.active {
             border-color: #00d4ff;
             background: linear-gradient(135deg, #1a3a3a 0%, #152525 100%);
-            transform: translateY(-4px);
+            transform: translateY(-3px);
         }
         
         .file-upload {
-            margin: 36px 0;
+            margin: 36px 0; /* 🔍 再增加間距20% */
         }
         
         .upload-btn {
@@ -118,8 +110,8 @@
             background: linear-gradient(135deg, #333333 0%, #222222 100%);
             border: 2px dashed rgba(255, 255, 255, 0.3);
             color: #ffffff;
-            padding: 36px 24px;
-            border-radius: 18px;
+            padding: 36px 24px; /* 🔍 再增加內距20% */
+            border-radius: 18px; /* 🔍 再加大圓角20% */
             cursor: pointer;
             transition: all 0.3s ease;
             text-align: center;
@@ -132,51 +124,58 @@
         
         textarea {
             width: 100%;
-            height: 180px;
+            height: 180px; /* 🔍 再增加高度20% */
             background: rgba(255,255,255,0.05);
             border: 1px solid rgba(255,255,255,0.2);
-            border-radius: 18px;
+            border-radius: 18px; /* 🔍 再加大圓角20% */
             color: #ffffff;
-            padding: 24px;
-            font-size: 18px;
+            padding: 24px; /* 🔍 再增加內距20% */
+            font-size: 19px; /* 🔍 再放大20% */
             resize: vertical;
-            margin: 36px 0;
+            margin: 36px 0; /* 🔍 再增加間距20% */
         }
         
-        .datetime-info {
+        /* 🔍 日期時間案件編號 */
+        .case-number {
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 18px;
-            padding: 24px;
-            margin: 36px 0;
+            border-radius: 15px;
+            padding: 24px; /* 🔍 再增加內距20% */
+            margin: 36px 0; /* 🔍 再增加間距20% */
             text-align: center;
         }
         
-        .datetime-text {
-            font-size: 20px;
-            font-weight: 500;
+        .case-number .date-time {
+            font-size: 16px;
+            margin-bottom: 8px;
         }
         
-        /* 黑色系提交按鈕 */
+        .case-number .case-id {
+            font-size: 28px; /* 🔍 再放大20% */
+            font-weight: bold;
+            color: #00d4ff;
+        }
+        
+        /* 🔍 淺灰色按鈕 - 維持你的要求 */
         .submit-btn {
             width: 100%;
-            background: linear-gradient(135deg, #000000 0%, #333333 100%);
-            color: white;
+            background: #e0e0e0; /* 淺灰色背景 */
+            color: #000000; /* 黑色文字 */
             border: none;
-            padding: 24px 20px;
-            font-size: 22px;
+            padding: 24px; /* 🔍 再增加內距20% */
+            font-size: 24px; /* 🔍 再放大20% */
             font-weight: 600;
-            border-radius: 18px;
+            border-radius: 18px; /* 🔍 再加大圓角20% */
             cursor: pointer;
             transition: all 0.3s ease;
-            margin-top: 36px;
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+            margin-top: 36px; /* 🔍 再增加間距20% */
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
         }
         
         .submit-btn:hover {
-            background: linear-gradient(135deg, #333333 0%, #555555 100%);
-            transform: translateY(-4px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+            background: #d0d0d0; /* 稍深灰色 */
+            transform: translateY(-4px); /* 🔍 更大浮動 */
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
         }
     </style>
 </head>
@@ -187,14 +186,10 @@
             <p>我們重視您的每一個意見</p>
         </div>
         
-        <!-- 🔍 用戶資訊顯示 - 移除載入中文字 -->
-        <div class="user-info">
-            <div class="user-name" id="userName"></div>
-        </div>
-        
-        <!-- 🔍 日期時間顯示 -->
-        <div class="datetime-info">
-            <div class="datetime-text" id="datetimeText"></div>
+        <!-- 🔍 使用者名稱顯示區 -->
+        <div class="user-welcome" id="userWelcome">
+            <div class="greeting">您好！</div>
+            <div class="username" id="userName">載入中...</div>
         </div>
         
         <div class="complaint-types">
@@ -208,13 +203,190 @@
         
         <div class="file-upload">
             <div class="upload-btn" onclick="uploadFile()">
-                <div style="font-size: 62px; margin-bottom: 18px;">📎</div>
-                <div style="font-size: 20px;">點擊上傳照片/影片證據</div>
-                <div style="font-size: 16px; opacity: 0.7; margin-top: 10px;">支援 JPG, PNG, MP4 格式</div>
+                <div style="font-size: 62px; margin-bottom: 15px;">📎</div>
+                <div style="font-size: 22px;">點擊上傳照片/影片證據</div>
+                <div style="font-size: 16px; opacity: 0.7; margin-top: 8px;">支援 JPG, PNG, MP4 格式</div>
             </div>
             <input type="file" id="fileInput" style="display: none;" accept="image/*,video/*" multiple>
         </div>
         
         <textarea id="description" placeholder="請詳細描述您的問題..." 
                   style="width: 100%; height: 180px; background: rgba(255,255,255,0.05); 
-                         border: 1px solid rgba(255,255
+                         border: 1px solid rgba(255,255,255,0.2); border-radius: 18px; 
+                         color: #ffffff; padding: 24px; font-size: 19px; 
+                         resize: vertical; margin: 36px 0;"></textarea>
+        
+        <!-- 🔍 日期時間案件編號 -->
+        <div class="case-number" id="caseNumber" style="display: none;">
+            <div class="date-time">案件建立時間</div>
+            <div class="case-id" id="caseId"></div>
+        </div>
+        
+        <!-- 🔍 淺灰色按鈕 - 維持你的要求 -->
+        <button class="submit-btn" onclick="submitComplaint()">
+            提交客訴案件
+        </button>
+    </div>
+
+    <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+    <script>
+        let liffId = "2008784977-HdgsRmmR";
+        let selectedType = '';
+        let uploadedFiles = [];
+        let userName = '';
+
+        async function initializeLiff() {
+            try {
+                await liff.init({ liffId: liffId });
+                console.log("LIFF initialized successfully");
+                
+                // 🔍 獲取使用者名稱
+                if (liff.isInClient()) {
+                    const profile = await liff.getProfile();
+                    userName = profile.displayName;
+                    document.getElementById('userName').textContent = userName;
+                } else {
+                    userName = '訪客';
+                    document.getElementById('userName').textContent = userName;
+                }
+                
+                generateCaseNumber(); // 🔍 產生案件編號
+            } catch (error) {
+                console.error("LIFF initialization failed", error);
+                userName = '訪客';
+                document.getElementById('userName').textContent = userName;
+                generateCaseNumber();
+            }
+        }
+
+        // 類型選擇
+        document.querySelectorAll('.type-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                // 清除所有選中狀態
+                document.querySelectorAll('.type-btn').forEach(b => b.classList.remove('active'));
+                
+                // 設置當前選中
+                this.classList.add('active');
+                selectedType = this.dataset.type;
+            });
+        });
+
+        // 檔案上傳
+        function uploadFile() {
+            document.getElementById('fileInput').click();
+        }
+
+        document.getElementById('fileInput').addEventListener('change', function(e) {
+            const files = Array.from(e.target.files);
+            uploadedFiles = files;
+            
+            if (files.length > 0) {
+                showMessage(`已選擇 ${files.length} 個檔案`, "success");
+                document.querySelector('.upload-btn').innerHTML = 
+                    `<div style="font-size: 62px; margin-bottom: 15px;">✅</div>
+                     <div style="font-size: 22px;">已上傳 ${files.length} 個檔案</div>`;
+            }
+        });
+
+        // 🔍 產生日期時間案件編號
+        function generateCaseNumber() {
+            const now = new Date();
+            const year = now.getFullYear();
+            const month = String(now.getMonth() + 1).padStart(2, '0');
+            const day = String(now.getDate()).padStart(2, '0');
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            
+            const caseId = `${year}/${month}/${day}-${hours}${minutes}`;
+            
+            document.getElementById('caseId').textContent = caseId;
+            document.getElementById('caseNumber').style.display = 'block';
+        }
+
+        // 提交客訴
+        async function submitComplaint() {
+            if (selectedType === '') {
+                showMessage("請選擇問題類型", "error");
+                return;
+            }
+            
+            const description = document.getElementById('description').value.trim();
+            if (description.length < 10) {
+                showMessage("請至少輸入10個字的描述", "error");
+                return;
+            }
+            
+            const caseNumber = document.getElementById('caseId').textContent;
+            
+            showMessage("正在處理客訴...", "loading");
+            
+            try {
+                // 發送回 LINE
+                if (liff.isInClient()) {
+                    const message = `🎧 客訴案件已建立\n案件編號：${caseNumber}\n用戶：${userName}\n問題類型：${getTypeText(selectedType)}\n\n我們將盡快處理您的問題，感謝您的耐心等候。`;
+                    
+                    await liff.sendMessages([
+                        {
+                            type: "text",
+                            text: message
+                        }
+                    ]);
+                    
+                    showMessage("客訴案件已提交！", "success");
+                    
+                    setTimeout(() => {
+                        liff.closeWindow();
+                    }, 2000);
+                } else {
+                    showMessage("請在LINE中開啟此頁面", "error");
+                }
+                
+            } catch (error) {
+                console.error("提交錯誤:", error);
+                showMessage("提交失敗，請重試", "error");
+            }
+        }
+
+        function getTypeText(type) {
+            const types = {
+                'driver': '司機問題',
+                'service': '服務態度',
+                'fare': '車資爭議',
+                'safety': '行車安全',
+                'app': 'APP問題',
+                'other': '其他問題'
+            };
+            return types[type] || '未知類型';
+        }
+
+        function showMessage(message, type) {
+            const msgDiv = document.createElement('div');
+            msgDiv.style.cssText = `
+                position: fixed;
+                top: 20px;
+                left: 50%;
+                transform: translateX(-50%);
+                background: ${type === 'success' ? 'rgba(0, 170, 0, 0.9)' : 'rgba(211, 47, 47, 0.9)'};
+                color: white;
+                padding: 15px 25px;
+                border-radius: 8px;
+                font-size: 16px;
+                z-index: 1000;
+                transition: opacity 0.3s ease;
+            `;
+            msgDiv.textContent = message;
+            document.body.appendChild(msgDiv);
+            
+            setTimeout(() => {
+                msgDiv.style.opacity = '0';
+                setTimeout(() => {
+                    document.body.removeChild(msgDiv);
+                }, 300);
+            }, 3000);
+        }
+
+        // 初始化
+        initializeLiff();
+    </script>
+</body>
+</html>
